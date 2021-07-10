@@ -17,7 +17,7 @@ class ChannelHandler {
      * @internal
      */
 	constructor(settings: Settings = {}) {
-		this.url = settings.url ?? 'https://api.holotools.app/v2';
+		this.url = settings.url ?? 'https://holodex.net/api/v2';
 	}
 
 	/**
