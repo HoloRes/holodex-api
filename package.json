@@ -1,0 +1,30 @@
+{
+  "name": "holodex-api",
+  "version": "1.0.0",
+  "description": "Typescript API for Holodex",
+  "main": "dist/index.js",
+  "dependencies": {
+    "axios": "^0.21.1",
+    "eslint": "^7.30.0",
+    "eslint-config-airbnb-base": "^14.2.1",
+    "eslint-plugin-import": "^2.23.4",
+    "ts-node": "^10.1.0",
+    "typedoc": "^0.21.2",
+    "typescript": "^4.3.5",
+    "typedoc-neo-theme": "^1.1.1"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/HoloRes/holodex-api.git"
+  },
+  "author": "Ninjastahr",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/HoloRes/holodex-api/issues"
+  },
+  "homepage": "https://github.com/HoloRes/holodex-api#readme"
+}
