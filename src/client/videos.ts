@@ -46,7 +46,7 @@ class VideoHandler {
 	// eslint-disable-next-line class-methods-use-this,@typescript-eslint/explicit-module-boundary-types,@typescript-eslint/no-explicit-any
 	mapVideos(data: any): VideoFull[] {
 		return data.map((video: APIVideoFull) => {
-			const mapApiVideoWithChannelToVideoWithChannel = (videos: APIVideoWithChannel[]) => videos.map((vid) => ({
+			const mapApiVideoWithChannelToVideoWithChannel = (videos: APIVideoWithChannel[]): VideoWithChannel[] => videos.map((vid) => ({
 				id: vid.id,
 				title: vid.title,
 				type: vid.type,
@@ -71,10 +71,10 @@ class VideoHandler {
 				},
 			}))
 
-			const clips: VideoWithChannel[]|undefined = video.clips ? mapApiVideoWithChannelToVideoWithChannel(video.clips) : undefined;
-			const sources: VideoWithChannel[]|undefined = video.sources ? mapApiVideoWithChannelToVideoWithChannel(video.sources) : undefined;
-			const refers: VideoWithChannel[]|undefined = video.refers ? mapApiVideoWithChannelToVideoWithChannel(video.refers) : undefined;
-			const simulcasts: VideoWithChannel[]|undefined = video.simulcasts ? mapApiVideoWithChannelToVideoWithChannel(video.simulcasts) : undefined;
+			const clips = video.clips ? mapApiVideoWithChannelToVideoWithChannel(video.clips) : undefined;
+			const sources = video.sources ? mapApiVideoWithChannelToVideoWithChannel(video.sources) : undefined;
+			const refers = video.refers ? mapApiVideoWithChannelToVideoWithChannel(video.refers) : undefined;
+			const simulcasts = video.simulcasts ? mapApiVideoWithChannelToVideoWithChannel(video.simulcasts) : undefined;
 
 			const mentions: Mention[]|undefined = video.mentions?.map((channel: APIMentions) => ({
 				id: channel.id,
