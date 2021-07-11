@@ -91,6 +91,14 @@ export interface APIVideoFull extends APIVideo {
 }
 
 /**
+ * For use when https://holodex.stoplight.io/docs/holodex/holodex_v2.yaml/paths/~1channels~1%7BchannelId%7D~1%7Btype%7D/get is paginated.
+ */
+export interface PaginatedVideos {
+	total: number;
+	videos: APIVideoFull[];
+}
+
+/**
  * Query Parameters for https://holodex.stoplight.io/docs/holodex/holodex_v2.yaml/paths/~1channels/get
  */
 export interface ListChannelParameters {
@@ -101,4 +109,48 @@ export interface ListChannelParameters {
 	org?: string;
 	sort?: string;
 	type?: 'subber'|'vtuber';
+}
+
+/**
+ * Query Parameters for https://holodex.stoplight.io/docs/holodex/holodex_v2.yaml/paths/~1channels~1%7BchannelId%7D~1%7Btype%7D/get
+ */
+export interface VideosRelatedToChannelParameters {
+	/**
+	 * Comma-separated list of extra video info.  Possible items:
+	 * 'clips'
+	 * 'refers'
+	 * 'sources'
+	 * 'simulcasts'
+	 * 'mentions'
+	 * 'description'
+	 * 'live_info'
+	 * 'channel_stats'
+	 * 'songs'
+	 */
+	array?: string;
+
+	/**
+	 * Comma-separated list of language codes for filtering channels/clips,
+	 * official streams do not follow this parameter
+	 * Default 'all'
+	 */
+	lang?: string;
+
+	/**
+	 * Results limit.
+	 * Default 25
+	 */
+	limit?: number;
+
+	/**
+	 * Results offset.
+	 * Default 0
+	 */
+	offset?: number;
+
+	/**
+	 * If paginated is set to any non-empty value, return an object with total, otherwise returns an array.
+	 * Default <empty>
+	 */
+	paginated?: string;
 }
