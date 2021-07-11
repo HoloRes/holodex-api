@@ -1,6 +1,5 @@
 import VideoHandler from './client/videos';
 import ChannelHandler from './client/channels';
-import CommentHandler from './client/comments';
 import { Settings } from './types';
 
 class Client {
@@ -14,18 +13,15 @@ class Client {
 
 	public channels: ChannelHandler;
 
-	public comments: CommentHandler;
-
 	constructor(settings: Settings = {}) {
-		this.url = settings.url ?? 'https://api.holotools.app/v1';
+		this.url = settings.url ?? 'https://holodex.net/api/v2';
 		this.videos = new VideoHandler(settings);
 		this.channels = new ChannelHandler(settings);
-		this.comments = new CommentHandler(settings);
 	}
 }
 
 export {
-	Client, VideoHandler, ChannelHandler, CommentHandler,
+	Client, VideoHandler, ChannelHandler,
 };
 
 // @ts-expect-error Redefine error

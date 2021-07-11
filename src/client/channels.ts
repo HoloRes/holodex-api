@@ -104,3 +104,7 @@ class ChannelHandler {
 			});
 	}
 }
+
+export default ChannelHandler;
+// @ts-expect-error Redefine error
+export = ChannelHandler;

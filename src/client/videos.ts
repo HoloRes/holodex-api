@@ -7,6 +7,12 @@ import {
 	VideosQueryLiveAndUpcomingParameters,
 } from '../types';
 
+/**
+ * @internal
+ * Type for the type parameter
+ */
+type VideoTypes = 'clips'|'videos'|'collabs';
+
 class VideoHandler {
 	/**
 	 * @private
@@ -30,7 +36,7 @@ class VideoHandler {
 	 * @param type - The type of video resource to fetch. Clips finds clip videos of a `vtuber` channel, Video finds the `channelId` channel's uploads, and collabs finds videos uploaded by other channels that mention this `channelId`
 	 * @param vidParams - object containing the query parameters for this query
 	 */
-	async getFromChannelWithTypePaginated(channelID: string, type: string, vidParams: VideosRelatedToChannelParameters) {
+	async getFromChannelWithTypePaginated(channelID: string, type: VideoTypes, vidParams: VideosRelatedToChannelParameters) {
 		axios.get(`${this.url}/channels/${channelID}/${type}`, {
 			params: {
 				include: vidParams.include ?? undefined,
@@ -66,7 +72,7 @@ class VideoHandler {
 	 * @param type - The type of video resource to fetch. Clips finds clip videos of a `vtuber` channel, Video finds the `channelId` channel's uploads, and collabs finds videos uploaded by other channels that mention this `channelId`
 	 * @param vidParams - object containing the query parameters for this query
 	 */
-	async getFromChannelWithTypeUnpaginated(channelID: string, type: string, vidParams: VideosRelatedToChannelParameters) {
+	async getFromChannelWithTypeUnpaginated(channelID: string, type: VideoTypes, vidParams: VideosRelatedToChannelParameters) {
 		axios.get(`${this.url}/channels/${channelID}/${type}`, {
 			params: {
 				include: vidParams.include ?? undefined,
@@ -123,7 +129,7 @@ class VideoHandler {
 	 * @param type - The type of video resource to fetch. Clips finds clip videos of a `vtuber` channel, Video finds the `channelId` channel's uploads, and collabs finds videos uploaded by other channels that mention this `channelId`
 	 * @param vidParams - object containing the query parameters for this query
 	 */
-	async getFromChannelWithType(channelID: string, type: string, vidParams: VideosRelatedToChannelParameters) {
+	async getFromChannelWithType(channelID: string, type: VideoTypes, vidParams: VideosRelatedToChannelParameters) {
 		if (vidParams.paginated === undefined) return this.getFromChannelWithTypeUnpaginated(channelID, type, vidParams);
 		return this.getFromChannelWithTypePaginated(channelID, type, vidParams);
 	}
@@ -228,3 +234,7 @@ class VideoHandler {
 		return this.getLivePaginated(vidParams);
 	}
 }
+
+export default VideoHandler;
+// @ts-expect-error Redefine error
+export = VideoHandler;
