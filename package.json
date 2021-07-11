@@ -1,22 +1,42 @@
 {
-  "name": "holodex-api",
+  "name": "@holores/holodex",
   "version": "1.0.0",
-  "description": "Typescript API for Holodex",
+  "description": "A Typescript library for the Holotools API.",
   "main": "dist/index.js",
   "dependencies": {
-    "axios": "^0.21.1",
+    "axios": "^0.21.1"
+  },
+  "devDependencies": {
+    "@types/chai": "^4.2.21",
+    "@types/mocha": "^8.2.3",
+    "@typescript-eslint/eslint-plugin": "^4.28.2",
+    "chai": "^4.3.4",
+    "chai-as-promised": "^7.1.1",
     "eslint": "^7.30.0",
     "eslint-config-airbnb-base": "^14.2.1",
     "eslint-plugin-import": "^2.23.4",
+    "mocha": "^9.0.2",
+    "np": "^7.5.0",
     "ts-node": "^10.1.0",
     "typedoc": "^0.21.2",
-    "typescript": "^4.3.5",
-    "typedoc-neo-theme": "^1.1.1"
+    "typedoc-neo-theme": "^1.1.1",
+    "typescript": "^4.3.5"
   },
-  "devDependencies": {},
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "tsc -d",
+    "test": "mocha -r ts-node/register test/*.ts --timeout 5000",
+    "test:commonjs": "npm run build && mocha --timeout 5000",
+    "test:full": "npm run test && npm run test:commonjs",
+    "docs": "typedoc --theme ./node_modules/typedoc-neo-theme/bin/default --plugin typedoc-neo-theme --excludeInternal --out docs src/index.ts src/types.ts",
+    "lint": "eslint src/",
+    "lint:fix": "eslint --fix src/",
+    "prepublishOnly": "npm run lint:fix && npm run test:full && npm run docs"
   },
+  "keywords": [
+    "hololive",
+    "holodex",
+    "api"
+  ],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/HoloRes/holodex-api.git"
@@ -26,5 +46,11 @@
   "bugs": {
     "url": "https://github.com/HoloRes/holodex-api/issues"
   },
-  "homepage": "https://github.com/HoloRes/holodex-api#readme"
+  "homepage": "https://github.com/HoloRes/holodex-api#readme",
+  "directories": {
+    "doc": "docs"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
 }

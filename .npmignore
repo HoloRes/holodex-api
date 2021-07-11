@@ -1,0 +1,7 @@
+docs/
+src/
+.idea/
+test/
+tsconfig.json
+.eslintignore
+.eslintrc.js
