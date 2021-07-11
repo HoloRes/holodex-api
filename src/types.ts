@@ -98,6 +98,10 @@ export interface PaginatedVideos {
 	videos: APIVideoFull[];
 }
 
+export interface ExtraVideoInfo {
+	item?: 'clips'|'refers'|'sources'|'simulcasts'|'mentions'|'description'|'live_info'|'channel_stats'|'songs'
+}
+
 /**
  * Query Parameters for https://holodex.stoplight.io/docs/holodex/holodex_v2.yaml/paths/~1channels/get
  */
@@ -127,7 +131,7 @@ export interface VideosRelatedToChannelParameters {
 	 * 'channel_stats'
 	 * 'songs'
 	 */
-	array?: string;
+	include?: ExtraVideoInfo[];
 
 	/**
 	 * Comma-separated list of language codes for filtering channels/clips,
@@ -153,4 +157,106 @@ export interface VideosRelatedToChannelParameters {
 	 * Default <empty>
 	 */
 	paginated?: string;
+}
+
+/**
+ * Query Parameters for https://holodex.stoplight.io/docs/holodex/holodex_v2.yaml/paths/~1live/get
+ */
+export interface VideosQueryLiveAndUpcomingParameters {
+	/**
+	 * Examples: `UCl_gCybOJRIgOXw6Qb4qJzQ`
+	 * Filter by video uploader channel id
+	 */
+	channel_id?: string;
+
+	/**
+	 * A single Youtube Video ID. If Specified, only this video can be returned (may be filtered out by other conditions though)
+	 */
+	id?: string;
+
+	/**
+	 * Comma-separated list of extra video info.  Possible items:
+	 * 'clips'
+	 * 'refers'
+	 * 'sources'
+	 * 'simulcasts'
+	 * 'mentions'
+	 * 'description'
+	 * 'live_info'
+	 * 'channel_stats'
+	 * 'songs'
+	 */
+	include?: ExtraVideoInfo[];
+
+	/**
+	 * Examples: `en,ja`
+	 * Default: `all`
+	 * A comma separated list of language codes to filter channels/clips, official streams do not follow this parameter
+	 */
+	lang?: string;
+
+	/**
+	 * Default: `25`
+	 * Results limit
+	 */
+	limit?: number;
+
+	/**
+	 * Examples: `24`
+	 * Number of maximum hours upcoming to get upcoming videos by (for rejecting waiting rooms that are two years out)
+	 */
+	max_upcoming_Hours?: number;
+
+	/**
+	 * Filter by mentioned channel id, excludes itself. Generally used to find collabs/clips that include the requested channel
+	 */
+	mentioned_channel_id?: string;
+
+	/**
+	 * Default: `0`
+	 * Offset results
+	 */
+	offset?: number;
+
+	/**
+	 * Default: `desc`
+	 * Order by ascending or descending
+	 */
+	order?: 'asc'|'desc';
+
+	/**
+	 * Examples: `Hololive`
+	 * Filter by clips that feature the org's talent or videos posted by the org's talent
+	 */
+	org?: string;
+
+	/**
+	 * Default: `<empty>`
+	 * If paginated is set to any non-empty value, return an object with total, otherwise returns an array.
+	 */
+	paginated?: string;
+
+	/**
+	 * Examples: `start_scheduled`
+	 * Default: `available_at`
+	 * Sort by any returned video field
+	 */
+	sort?: string;
+
+	/**
+	 * Examples: `past`
+	 * Filter by video status
+	 */
+	status?: 'new'|'upcoming'|'live'|'past'|'missing';
+
+	/**
+	 * Examples: `singing`
+	 * Filter by video topic id
+	 */
+	topic?: string;
+
+	/**
+	 * Filter by type of video
+	 */
+	type?: 'stream'|'clip';
 }
