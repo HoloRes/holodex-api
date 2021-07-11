@@ -5,6 +5,7 @@ export interface Settings {
 	url?: string;
 }
 
+// API types
 /**
  * Model corresponding to https://holodex.stoplight.io/docs/holodex/holodex_v2.yaml/components/schemas/Comment
  */
@@ -102,6 +103,7 @@ export interface ExtraVideoInfo {
 	item?: 'clips'|'refers'|'sources'|'simulcasts'|'mentions'|'description'|'live_info'|'channel_stats'|'songs'
 }
 
+// Parameter types
 /**
  * Query Parameters for https://holodex.stoplight.io/docs/holodex/holodex_v2.yaml/paths/~1channels/get
  */
@@ -153,10 +155,10 @@ export interface VideosRelatedToChannelParameters {
 	offset?: number;
 
 	/**
-	 * If paginated is set to any non-empty value, return an object with total, otherwise returns an array.
+	 * If paginated is set to true, return an object with total, otherwise returns an array.
 	 * Default <empty>
 	 */
-	paginated?: string;
+	paginated?: boolean;
 }
 
 /**
@@ -231,10 +233,10 @@ export interface VideosQueryLiveAndUpcomingParameters {
 	org?: string;
 
 	/**
-	 * Default: `<empty>`
-	 * If paginated is set to any non-empty value, return an object with total, otherwise returns an array.
+	 * If paginated is set to true, return an object with total, otherwise returns an array.
+	 * Default <empty>
 	 */
-	paginated?: string;
+	paginated?: boolean;
 
 	/**
 	 * Examples: `start_scheduled`
@@ -259,4 +261,80 @@ export interface VideosQueryLiveAndUpcomingParameters {
 	 * Filter by type of video
 	 */
 	type?: 'stream'|'clip';
+}
+
+// Converted types
+export interface ChannelMin {
+	id: string;
+	name: string;
+	englishName?: string;
+	type: 'vtuber'|'subber';
+	photo?: string;
+}
+
+export interface Channel extends ChannelMin {
+	org?: string;
+	suborg?: string;
+	banner?: string;
+	twitter?: string;
+	videoCount?: number;
+	subscriberCount?: number;
+	viewCount?: number;
+	clipCount?: number;
+	lang?: string;
+	publishedAt: Date;
+	inactive: boolean;
+	description: string;
+}
+
+export interface Video {
+	id: string;
+	title: string;
+	type: 'stream'|'clip';
+	topicId?: string;
+	publishedAt?: Date;
+	availableAt?: Date;
+	duration: number;
+	status: string;
+	startScheduled?: Date;
+	startActual?: Date;
+	endActual?: Date;
+	liveViewers?: number;
+	description: string;
+	songcount?: number;
+	channelId: string;
+}
+
+export interface VideoWithChannel extends Video {
+	channel: ChannelMin;
+}
+
+export interface VideoFull extends Video {
+	clips?: VideoWithChannel[];
+	sources?: VideoWithChannel[];
+	refers?: VideoWithChannel[];
+	simulcasts?: VideoWithChannel[];
+	mentions?: ChannelMin[];
+	songs?: number;
+}
+
+export interface Comment {
+	commentKey: string;
+	videoId: string;
+	message: string;
+}
+
+// Additional return types
+export interface PaginatedChannelVideosData {
+	total: number;
+	items: VideoFull[];
+}
+
+export interface Mention extends ChannelMin {
+	org?: string;
+}
+
+export interface PaginatedLiveVideosData {
+	total: number;
+	items: Video[];
 }
