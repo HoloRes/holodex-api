@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>PaginatedVideos | @holores/holodex</title>
+	<title>Comment | @holores/holodex</title>
 	<meta name="description" content="">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="../assets/css/main.css">
@@ -59,7 +59,7 @@
 					<a href="../modules/types.html">types</a>
 				</li>
 				<li>
-					<a href="types.paginatedvideos.html">PaginatedVideos</a>
+					<a href="types.comment.html">Comment</a>
 				</li>
 			</ul>
 		</div>
@@ -83,17 +83,12 @@
 			</nav>
 		</div>
 		<div class="col-7 offset-3 col-content">
-			<h1>Interface PaginatedVideos</h1>
-			<section class="tsd-panel tsd-comment"><div class="tsd-comment tsd-typography tsd-comment-shorttext">
-					<div class="lead">
-						<p>For use when <a href="https://holodex.stoplight.io/docs/holodex/holodex_v2.yaml/paths/~1channels~1%7BchannelId%7D~1%7Btype%7D/get">https://holodex.stoplight.io/docs/holodex/holodex_v2.yaml/paths/~1channels~1%7BchannelId%7D~1%7Btype%7D/get</a> is paginated.</p>
-					</div>
-			</div></section>
+			<h1>Interface Comment</h1>
 			<section class="tsd-panel tsd-hierarchy">
 				<h3>Hierarchy</h3>
 				<ul class="tsd-hierarchy">
 					<li>
-						<span class="target">PaginatedVideos</span>
+						<span class="target">Comment</span>
 					</li>
 				</ul>
 			</section>
@@ -103,8 +98,9 @@
 						<section class="tsd-index-section ">
 							<h3>Properties</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="types.paginatedvideos.html#total" class="tsd-kind-icon">total</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="types.paginatedvideos.html#videos" class="tsd-kind-icon">videos</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="types.comment.html#commentkey" class="tsd-kind-icon">comment<wbr>Key</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="types.comment.html#message" class="tsd-kind-icon">message</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="types.comment.html#videoid" class="tsd-kind-icon">video<wbr>Id</a></li>
 							</ul>
 						</section>
 					</div>
@@ -113,22 +109,32 @@
 			<section class="tsd-panel-group tsd-member-group ">
 				<h2>Properties</h2>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
-					<a name="total" class="tsd-anchor"></a>
-					<h3>total</h3>
-					<div class="tsd-signature tsd-kind-icon">total<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
+					<a name="commentkey" class="tsd-anchor"></a>
+					<h3>comment<wbr>Key</h3>
+					<div class="tsd-signature tsd-kind-icon">comment<wbr>Key<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in types.ts:98</li>
+							<li>Defined in types.ts:322</li>
 						</ul>
 					</aside>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
-					<a name="videos" class="tsd-anchor"></a>
-					<h3>videos</h3>
-					<div class="tsd-signature tsd-kind-icon">videos<span class="tsd-signature-symbol">:</span> <a href="types.apivideofull.html" class="tsd-signature-type">APIVideoFull</a><span class="tsd-signature-symbol">[]</span></div>
+					<a name="message" class="tsd-anchor"></a>
+					<h3>message</h3>
+					<div class="tsd-signature tsd-kind-icon">message<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in types.ts:99</li>
+							<li>Defined in types.ts:324</li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
+					<a name="videoid" class="tsd-anchor"></a>
+					<h3>video<wbr>Id</h3>
+					<div class="tsd-signature tsd-kind-icon">video<wbr>Id<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in types.ts:323</li>
 						</ul>
 					</aside>
 				</section>
@@ -165,9 +171,24 @@
 					<li class=" tsd-kind-interface tsd-parent-kind-module root">
 						<a href="types.channelmin.html" class="tsd-kind-icon">Channel<wbr>Min</a>
 					</li>
-					<li class=" tsd-kind-interface tsd-parent-kind-module root">
+				</ul>
+				<ul class="current">
+					<li class="current tsd-kind-interface tsd-parent-kind-module root">
 						<a href="types.comment.html" class="tsd-kind-icon">Comment</a>
+						<ul>
+							<li class=" tsd-kind-property tsd-parent-kind-interface">
+								<a href="types.comment.html#commentkey" class="tsd-kind-icon">comment<wbr>Key</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-interface">
+								<a href="types.comment.html#message" class="tsd-kind-icon">message</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-interface">
+								<a href="types.comment.html#videoid" class="tsd-kind-icon">video<wbr>Id</a>
+							</li>
+						</ul>
 					</li>
+				</ul>
+				<ul class="after-current">
 					<li class=" tsd-kind-interface tsd-parent-kind-module root">
 						<a href="types.extravideoinfo.html" class="tsd-kind-icon">Extra<wbr>Video<wbr>Info</a>
 					</li>
@@ -183,21 +204,9 @@
 					<li class=" tsd-kind-interface tsd-parent-kind-module root">
 						<a href="types.paginatedlivevideosdata.html" class="tsd-kind-icon">Paginated<wbr>Live<wbr>Videos<wbr>Data</a>
 					</li>
-				</ul>
-				<ul class="current">
-					<li class="current tsd-kind-interface tsd-parent-kind-module root">
+					<li class=" tsd-kind-interface tsd-parent-kind-module root">
 						<a href="types.paginatedvideos.html" class="tsd-kind-icon">Paginated<wbr>Videos</a>
-						<ul>
-							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="types.paginatedvideos.html#total" class="tsd-kind-icon">total</a>
-							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="types.paginatedvideos.html#videos" class="tsd-kind-icon">videos</a>
-							</li>
-						</ul>
 					</li>
-				</ul>
-				<ul class="after-current">
 					<li class=" tsd-kind-interface tsd-parent-kind-module root">
 						<a href="types.settings.html" class="tsd-kind-icon">Settings</a>
 					</li>
