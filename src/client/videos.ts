@@ -69,7 +69,7 @@ class VideoHandler {
 					type: vid.channel.type,
 					photo: vid.channel.photo ?? undefined,
 				},
-			}))
+			}));
 
 			const clips = video.clips ? mapApiVideoWithChannelToVideoWithChannel(video.clips) : undefined;
 			const sources = video.sources ? mapApiVideoWithChannelToVideoWithChannel(video.sources) : undefined;
