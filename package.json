@@ -17,7 +17,7 @@
     "eslint-plugin-import": "2.25.4",
     "mocha": "9.0.2",
     "np": "7.6.0",
-    "ts-node": "10.6.0",
+    "ts-node": "10.7.0",
     "typedoc": "0.22.12",
     "typedoc-neo-theme": "1.1.1",
     "typescript": "4.6.2"
