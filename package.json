@@ -4,7 +4,7 @@
   "description": "A Typescript library for the Holotools API.",
   "main": "dist/index.js",
   "dependencies": {
-    "axios": "^0.26.0"
+    "axios": "^0.27.0"
   },
   "devDependencies": {
     "@types/chai": "4.3.1",
