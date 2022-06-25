@@ -18,7 +18,7 @@
     "mocha": "9.0.2",
     "np": "7.6.2",
     "ts-node": "10.8.1",
-    "typedoc": "0.22.17",
+    "typedoc": "0.22.18",
     "typedoc-neo-theme": "1.1.1",
     "typescript": "4.7.4"
   },
