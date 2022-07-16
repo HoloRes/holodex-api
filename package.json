@@ -1,6 +1,6 @@
 {
   "name": "@holores/holodex",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "A Typescript library for the Holotools API.",
   "main": "dist/index.js",
   "scripts": {
@@ -8,7 +8,7 @@
     "test": "mocha -r ts-node/register test/*.ts --timeout 5000",
     "test:commonjs": "npm run build && mocha --timeout 5000",
     "test:full": "npm run test && npm run test:commonjs",
-    "docs": "typedoc --excludeInternal --out docs src/index.ts src/types.d.ts",
+    "docs": "typedoc --excludeInternal --out docs src/index.ts src/types.ts",
     "lint": "eslint src/",
     "lint:fix": "eslint --fix src/",
     "prepublishOnly": "npm run lint:fix && npm run docs"
