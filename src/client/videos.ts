@@ -136,7 +136,7 @@ class VideoHandler {
 		});
 
 		return {
-			total: response.data.total,
+			total: Number.parseInt(response.data.total, 10),
 			items: this.mapVideos(response.data.items),
 		};
 	}
@@ -243,8 +243,8 @@ class VideoHandler {
 		});
 
 		return {
-			items: this.mapVideos(response.data) as Video[],
-			total: response.data.total,
+			items: this.mapVideos(response.data.items) as Video[],
+			total: Number.parseInt(response.data.total, 10),
 		};
 	}
 
@@ -318,8 +318,8 @@ class VideoHandler {
 		});
 
 		return {
-			items: this.mapVideos(response.data) as Video[],
-			total: response.data.total,
+			items: this.mapVideos(response.data.items) as Video[],
+			total: Number.parseInt(response.data.total, 10),
 		};
 	}
 

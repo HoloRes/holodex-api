@@ -115,7 +115,7 @@ class VideoHandler {
                     throw error;
             });
             return {
-                total: response.data.total,
+                total: Number.parseInt(response.data.total, 10),
                 items: this.mapVideos(response.data.items),
             };
         });
@@ -233,8 +233,8 @@ class VideoHandler {
                     throw error;
             });
             return {
-                items: this.mapVideos(response.data),
-                total: response.data.total,
+                items: this.mapVideos(response.data.items),
+                total: Number.parseInt(response.data.total, 10),
             };
         });
     }
@@ -313,8 +313,8 @@ class VideoHandler {
                     throw error;
             });
             return {
-                items: this.mapVideos(response.data),
-                total: response.data.total,
+                items: this.mapVideos(response.data.items),
+                total: Number.parseInt(response.data.total, 10),
             };
         });
     }
