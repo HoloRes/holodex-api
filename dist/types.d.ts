@@ -19,7 +19,7 @@ export interface APIComment {
 export interface APIChannelMin {
     id: string;
     name: string;
-    englishName?: string;
+    english_name?: string;
     type: 'vtuber' | 'subber';
     photo?: string;
 }
@@ -28,7 +28,7 @@ export interface APIChannelMin {
  */
 export interface APIChannel extends APIChannelMin {
     org?: string;
-    subOrg?: string;
+    suborg?: string;
     banner?: string;
     twitter?: string;
     video_count?: string;
@@ -82,6 +82,7 @@ export interface APIVideoFull extends APIVideo {
     simulcasts?: APIVideoWithChannel[];
     mentions?: APIMentions[];
     songs?: number;
+    channel?: APIChannelMin;
 }
 /**
  * For use when https://holodex.stoplight.io/docs/holodex/holodex_v2.yaml/paths/~1channels~1%7BchannelId%7D~1%7Btype%7D/get is paginated.
@@ -292,6 +293,7 @@ export interface VideoFull extends Video {
     simulcasts?: VideoWithChannel[];
     mentions?: ChannelMin[];
     songs?: number;
+    channel?: ChannelMin;
 }
 export interface Comment {
     commentKey: string;

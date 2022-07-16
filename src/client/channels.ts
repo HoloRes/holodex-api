@@ -44,11 +44,11 @@ class ChannelHandler {
 		const channelData: Channel[] = response.data.channels.map((ch: APIChannel): Channel => ({
 			id: ch.id,
 			name: ch.name,
-			englishName: ch.englishName ?? undefined,
+			englishName: ch.english_name ?? undefined,
 			type: ch.type,
 			photo: ch.photo ?? undefined,
 			org: ch.org ?? undefined,
-			subOrg: ch.subOrg ?? undefined,
+			subOrg: ch.suborg ?? undefined,
 			banner: ch.banner ?? undefined,
 			twitter: ch.twitter ?? undefined,
 			videoCount: ch.video_count ? parseInt(ch.video_count, 10) : undefined,

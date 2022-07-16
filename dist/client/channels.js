@@ -49,11 +49,11 @@ class ChannelHandler {
                 return ({
                     id: ch.id,
                     name: ch.name,
-                    englishName: (_a = ch.englishName) !== null && _a !== void 0 ? _a : undefined,
+                    englishName: (_a = ch.english_name) !== null && _a !== void 0 ? _a : undefined,
                     type: ch.type,
                     photo: (_b = ch.photo) !== null && _b !== void 0 ? _b : undefined,
                     org: (_c = ch.org) !== null && _c !== void 0 ? _c : undefined,
-                    subOrg: (_d = ch.subOrg) !== null && _d !== void 0 ? _d : undefined,
+                    subOrg: (_d = ch.suborg) !== null && _d !== void 0 ? _d : undefined,
                     banner: (_e = ch.banner) !== null && _e !== void 0 ? _e : undefined,
                     twitter: (_f = ch.twitter) !== null && _f !== void 0 ? _f : undefined,
                     videoCount: ch.video_count ? parseInt(ch.video_count, 10) : undefined,

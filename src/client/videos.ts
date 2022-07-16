@@ -65,7 +65,7 @@ class VideoHandler {
 				channel: {
 					id: vid.channel.id,
 					name: vid.channel.name,
-					englishName: vid.channel.englishName,
+					englishName: vid.channel.english_name,
 					type: vid.channel.type,
 					photo: vid.channel.photo,
 				},
@@ -79,7 +79,7 @@ class VideoHandler {
 			const mentions: Mention[] | undefined = video.mentions?.map((channel: APIMentions) => ({
 				id: channel.id,
 				name: channel.name,
-				englishName: channel.englishName,
+				englishName: channel.english_name,
 				type: channel.type,
 				photo: channel.photo,
 				org: channel.org,
@@ -102,6 +102,7 @@ class VideoHandler {
 				songs: video.songs,
 				songCount: video.songCount,
 				channelId: video.channel_id,
+				channel: video.channel,
 				clips,
 				sources,
 				refers,
