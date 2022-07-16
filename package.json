@@ -3,34 +3,35 @@
   "version": "1.0.0",
   "description": "A Typescript library for the Holotools API.",
   "main": "dist/index.js",
+  "scripts": {
+    "build": "tsc -d",
+    "test": "mocha -r ts-node/register test/*.ts --timeout 5000",
+    "test:commonjs": "npm run build && mocha --timeout 5000",
+    "test:full": "npm run test && npm run test:commonjs",
+    "docs": "typedoc --excludeInternal --out docs src/index.ts src/types.d.ts",
+    "lint": "eslint src/",
+    "lint:fix": "eslint --fix src/",
+    "prepublishOnly": "npm run lint:fix && npm run docs"
+  },
   "dependencies": {
     "axios": "^0.27.0"
   },
   "devDependencies": {
     "@types/chai": "4.3.1",
     "@types/mocha": "8.2.3",
-    "@typescript-eslint/eslint-plugin": "4.33.0",
+    "@typescript-eslint/eslint-plugin": "^5.13.0",
+    "@typescript-eslint/parser": "^5.0.0",
     "chai": "4.3.6",
     "chai-as-promised": "7.1.1",
     "eslint": "7.32.0",
     "eslint-config-airbnb-base": "14.2.1",
+    "eslint-config-airbnb-typescript": "^17.0.0",
     "eslint-plugin-import": "2.26.0",
     "mocha": "9.0.2",
     "np": "7.6.2",
     "ts-node": "10.9.1",
     "typedoc": "0.23.7",
-    "typedoc-neo-theme": "1.1.1",
     "typescript": "4.7.4"
-  },
-  "scripts": {
-    "build": "tsc -d",
-    "test": "mocha -r ts-node/register test/*.ts --timeout 5000",
-    "test:commonjs": "npm run build && mocha --timeout 5000",
-    "test:full": "npm run test && npm run test:commonjs",
-    "docs": "typedoc --theme ./node_modules/typedoc-neo-theme/bin/default --plugin typedoc-neo-theme --excludeInternal --out docs src/index.ts src/types.ts",
-    "lint": "eslint src/",
-    "lint:fix": "eslint --fix src/",
-    "prepublishOnly": "npm run lint:fix && npm run test:full && npm run docs"
   },
   "keywords": [
     "hololive",

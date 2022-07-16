@@ -1,39 +1,39 @@
-import axios, { AxiosError } from 'axios';
+import { AxiosError, AxiosInstance } from 'axios';
 import {
-	APIVideoFull,
-	Settings,
-	VideosRelatedToChannelParameters,
-	VideosQueryLiveAndUpcomingParameters,
-	PaginatedChannelVideosData,
-	VideoFull,
-	VideoWithChannel,
-	APIVideoWithChannel,
 	APIMentions,
-	Mention,
-	Video,
 	APIVideo,
-	PaginatedLiveVideosData,
+	APIVideoFull,
+	APIVideoWithChannel,
+	Mention,
+	PaginatedChannelVideosData,
+	PaginatedVideosData,
+	Video,
+	VideoFull,
+	VideosQuery,
+	VideosQueryLiveAndUpcomingParameters,
+	VideosRelatedToChannelParameters,
+	VideoWithChannel,
 } from '../types';
 
 /**
  * @internal
  * Type for the type parameter
  */
-type VideoTypes = 'clips'|'videos'|'collabs';
+type VideoTypes = 'clips' | 'videos' | 'collabs';
 
 class VideoHandler {
 	/**
 	 * @private
 	 * @internal
 	 */
-	private url: string;
+	private axiosInstance: AxiosInstance;
 
 	/**
 	 * @internal
-	 * @param settings - Settings for the video handler
+	 * @param axiosInstance - The new Axios instance
 	 */
-	constructor(settings: Settings = {}) {
-		this.url = settings.url ?? 'https://holodex.net/api/v2';
+	constructor(axiosInstance: AxiosInstance) {
+		this.axiosInstance = axiosInstance;
 	}
 
 	/**
@@ -50,7 +50,7 @@ class VideoHandler {
 				id: vid.id,
 				title: vid.title,
 				type: vid.type,
-				topicId: vid.topic_id ?? undefined,
+				topicId: vid.topic_id,
 				publishedAt: vid.published_at ? new Date(vid.published_at) : undefined,
 				availableAt: vid.available_at ? new Date(vid.available_at) : undefined,
 				duration: vid.duration,
@@ -58,16 +58,16 @@ class VideoHandler {
 				startScheduled: vid.start_scheduled ? new Date(vid.start_scheduled) : undefined,
 				startActual: vid.start_actual ? new Date(vid.start_actual) : undefined,
 				endActual: vid.end_actual ? new Date(vid.end_actual) : undefined,
-				liveViewers: vid.live_viewers ?? undefined,
+				liveViewers: vid.live_viewers,
 				description: vid.description,
-				songcount: vid.songcount,
+				songCount: vid.songCount,
 				channelId: vid.channel_id,
 				channel: {
 					id: vid.channel.id,
 					name: vid.channel.name,
-					englishName: vid.channel.english_name ?? undefined,
+					englishName: vid.channel.englishName,
 					type: vid.channel.type,
-					photo: vid.channel.photo ?? undefined,
+					photo: vid.channel.photo,
 				},
 			}));
 
@@ -76,20 +76,20 @@ class VideoHandler {
 			const refers = video.refers ? mapApiVideoWithChannelToVideoWithChannel(video.refers) : undefined;
 			const simulcasts = video.simulcasts ? mapApiVideoWithChannelToVideoWithChannel(video.simulcasts) : undefined;
 
-			const mentions: Mention[]|undefined = video.mentions?.map((channel: APIMentions) => ({
+			const mentions: Mention[] | undefined = video.mentions?.map((channel: APIMentions) => ({
 				id: channel.id,
 				name: channel.name,
-				englishName: channel.english_name ?? undefined,
+				englishName: channel.englishName,
 				type: channel.type,
-				photo: channel.photo ?? undefined,
-				org: channel.org ?? undefined,
+				photo: channel.photo,
+				org: channel.org,
 			}));
 
 			const final: VideoFull = {
 				id: video.id,
 				title: video.title,
 				type: video.type,
-				topicId: video.topic_id ?? undefined,
+				topicId: video.topic_id,
 				publishedAt: video.published_at ? new Date(video.published_at) : undefined,
 				availableAt: video.available_at ? new Date(video.available_at) : undefined,
 				duration: video.duration,
@@ -97,10 +97,10 @@ class VideoHandler {
 				startScheduled: video.start_scheduled ? new Date(video.start_scheduled) : undefined,
 				startActual: video.start_actual ? new Date(video.start_actual) : undefined,
 				endActual: video.end_actual ? new Date(video.end_actual) : undefined,
-				liveViewers: video.live_viewers ?? undefined,
+				liveViewers: video.live_viewers,
 				description: video.description,
-				songs: video.songs ?? undefined,
-				songcount: video.songcount ?? undefined,
+				songs: video.songs,
+				songCount: video.songCount,
 				channelId: video.channel_id,
 				clips,
 				sources,
@@ -121,17 +121,17 @@ class VideoHandler {
 	 * @param type - The type of video resource to fetch. Clips finds clip videos of a `vtuber` channel, Video finds the `channelId` channel's uploads, and collabs finds videos uploaded by other channels that mention this `channelId`
 	 * @param vidParams - object containing the query parameters for this query
 	 */
-	async getFromChannelWithTypePaginated(channelID: string, type: VideoTypes, vidParams: VideosRelatedToChannelParameters): Promise<PaginatedChannelVideosData> {
-		const response = await axios.get(`${this.url}/channels/${channelID}/${type}`, {
+	async getFromChannelWithTypePaginated(channelID: string, type: VideoTypes, vidParams?: VideosRelatedToChannelParameters): Promise<PaginatedChannelVideosData> {
+		const response = await this.axiosInstance.get(`/channels/${channelID}/${type}`, {
 			params: {
-				include: vidParams.include ?? undefined,
-				lang: vidParams.lang ?? undefined,
-				limit: vidParams.limit ?? undefined,
-				offset: vidParams.offset ?? undefined,
+				include: vidParams?.include,
+				lang: vidParams?.lang,
+				limit: vidParams?.limit,
+				offset: vidParams?.offset,
 				paginated: 'true',
 			},
 		}).catch((error: AxiosError) => {
-			if (error.response?.status === 400) throw new Error(error.response.data.message);
+			if (error.response?.status === 400) throw new Error(((error.response.data as any) as any).message);
 			else throw error;
 		});
 
@@ -149,17 +149,17 @@ class VideoHandler {
 	 * @param type - The type of video resource to fetch. Clips finds clip videos of a `vtuber` channel, Video finds the `channelId` channel's uploads, and collabs finds videos uploaded by other channels that mention this `channelId`
 	 * @param vidParams - object containing the query parameters for this query
 	 */
-	async getFromChannelWithTypeUnpaginated(channelID: string, type: VideoTypes, vidParams: VideosRelatedToChannelParameters): Promise<VideoFull[]> {
-		const response = await axios.get(`${this.url}/channels/${channelID}/${type}`, {
+	async getFromChannelWithTypeUnpaginated(channelID: string, type: VideoTypes, vidParams?: VideosRelatedToChannelParameters): Promise<VideoFull[]> {
+		const response = await this.axiosInstance.get(`/channels/${channelID}/${type}`, {
 			params: {
-				include: vidParams.include ?? undefined,
-				lang: vidParams.lang ?? undefined,
-				limit: vidParams.limit ?? undefined,
-				offset: vidParams.offset ?? undefined,
+				include: vidParams?.include,
+				lang: vidParams?.lang,
+				limit: vidParams?.limit,
+				offset: vidParams?.offset,
 				paginated: undefined,
 			},
 		}).catch((error: AxiosError) => {
-			if (error.response?.status === 400) throw new Error(error.response.data.message);
+			if (error.response?.status === 400) throw new Error((error.response.data as any).message);
 			else throw error;
 		});
 
@@ -176,77 +176,69 @@ class VideoHandler {
 	 * @param type - The type of video resource to fetch. Clips finds clip videos of a `vtuber` channel, Video finds the `channelId` channel's uploads, and collabs finds videos uploaded by other channels that mention this `channelId`
 	 * @param vidParams - object containing the query parameters for this query
 	 */
-	async getFromChannelWithType(channelID: string, type: VideoTypes, vidParams: VideosRelatedToChannelParameters): Promise<VideoFull[]|PaginatedChannelVideosData> {
-		if (vidParams.paginated === true) return this.getFromChannelWithTypePaginated(channelID, type, vidParams);
+	async getFromChannelWithType(channelID: string, type: VideoTypes, vidParams?: VideosRelatedToChannelParameters): Promise<VideoFull[] | PaginatedChannelVideosData> {
+		if (vidParams?.paginated === true) return this.getFromChannelWithTypePaginated(channelID, type, vidParams);
 		return this.getFromChannelWithTypeUnpaginated(channelID, type, vidParams);
 	}
 
-	async getLiveUnpaginated(vidParams: VideosQueryLiveAndUpcomingParameters): Promise<Video[]> {
-		const response = await axios.get(`${this.url}/live`, {
+	/**
+	 * Pretty much everything you need. This is the most 'vanilla' variant with almost no preset values, and /channels/{channelId}/{type} and /live endpoints both use the same query structure but provision default values differently for some of the query params.
+	 * Not as powerful at searching arbitrary text as the Search API (currently not documented/available).
+	 *
+	 * @param vidParams - object containing the query parameters for this query
+	 */
+	async getVideosUnpaginated(vidParams?: VideosQuery): Promise<Video[]> {
+		const response = await this.axiosInstance.get('/videos', {
 			params: {
-				channel_id: vidParams.channel_id ?? undefined,
-				id: vidParams.id ?? undefined,
-				include: vidParams.include ?? undefined,
-				lang: vidParams.lang ?? undefined,
-				limit: vidParams.limit ?? undefined,
-				max_upcoming_Hours: vidParams.max_upcoming_Hours ?? undefined,
-				mentioned_channel_id: vidParams.mentioned_channel_id ?? undefined,
-				offset: vidParams.offset ?? undefined,
-				order: vidParams.order ?? undefined,
-				org: vidParams.org ?? undefined,
+				channel_id: vidParams?.channelId,
+				from: vidParams?.from && vidParams?.from.toISOString(),
+				id: vidParams?.id,
+				include: vidParams?.include,
+				lang: vidParams?.lang,
+				limit: vidParams?.limit,
+				max_upcoming_Hours: vidParams?.maxUpcomingHours,
+				mentioned_channel_id: vidParams?.mentionedChannelId,
+				offset: vidParams?.offset,
+				order: vidParams?.order,
+				org: vidParams?.org,
 				paginated: undefined,
-				sort: vidParams.sort ?? undefined,
-				status: vidParams.status ?? undefined,
-				topic: vidParams.topic ?? undefined,
-				type: vidParams.type ?? undefined,
+				sort: vidParams?.sort,
+				status: vidParams?.status,
+				to: vidParams?.to && vidParams?.to.toISOString(),
+				topic: vidParams?.topic,
+				type: vidParams?.type,
 			},
 		}).catch((error: AxiosError) => {
-			if (error.response?.status === 400) throw new Error(error.response.data.message);
+			if (error.response?.status === 400) throw new Error((error.response.data as any).message);
 			else throw error;
 		});
 
-		const videoData: Video[] = response.data.videos.map((video: APIVideo) => ({
-			id: video.id,
-			title: video.title,
-			type: video.type,
-			topicId: video.topic_id ?? undefined,
-			publishedAt: video.published_at ? new Date(video.published_at) : undefined,
-			availableAt: video.available_at ? new Date(video.available_at) : undefined,
-			duration: video.duration,
-			status: video.status,
-			startScheduled: video.start_scheduled ? new Date(video.start_scheduled) : undefined,
-			startActual: video.start_actual ? new Date(video.start_actual) : undefined,
-			endActual: video.end_actual ? new Date(video.end_actual) : undefined,
-			liveViewers: video.live_viewers ?? undefined,
-			description: video.description,
-			songcount: video.songcount ?? undefined,
-			channelId: video.channel_id,
-		}));
-
-		return videoData;
+		return this.mapVideos(response.data);
 	}
 
-	async getLivePaginated(vidParams: VideosQueryLiveAndUpcomingParameters): Promise<PaginatedLiveVideosData> {
-		const response = await axios.get(`${this.url}/live`, {
+	async getVideosPaginated(vidParams?: VideosQuery): Promise<PaginatedVideosData> {
+		const response = await this.axiosInstance.get('/videos', {
 			params: {
-				channel_id: vidParams.channel_id ?? undefined,
-				id: vidParams.id ?? undefined,
-				include: vidParams.include ?? undefined,
-				lang: vidParams.lang ?? undefined,
-				limit: vidParams.limit ?? undefined,
-				max_upcoming_Hours: vidParams.max_upcoming_Hours ?? undefined,
-				mentioned_channel_id: vidParams.mentioned_channel_id ?? undefined,
-				offset: vidParams.offset ?? undefined,
-				order: vidParams.order ?? undefined,
-				org: vidParams.org ?? undefined,
+				channel_id: vidParams?.channelId,
+				from: vidParams?.from && vidParams?.from.toISOString(),
+				id: vidParams?.id,
+				include: vidParams?.include,
+				lang: vidParams?.lang,
+				limit: vidParams?.limit,
+				max_upcoming_Hours: vidParams?.maxUpcomingHours,
+				mentioned_channel_id: vidParams?.mentionedChannelId,
+				offset: vidParams?.offset,
+				order: vidParams?.order,
+				org: vidParams?.org,
 				paginated: 'true',
-				sort: vidParams.sort ?? undefined,
-				status: vidParams.status ?? undefined,
-				topic: vidParams.topic ?? undefined,
-				type: vidParams.type ?? undefined,
+				sort: vidParams?.sort,
+				status: vidParams?.status,
+				to: vidParams?.to && vidParams?.to.toISOString(),
+				topic: vidParams?.topic,
+				type: vidParams?.type,
 			},
 		}).catch((error: AxiosError) => {
-			if (error.response?.status === 400) throw new Error(error.response.data.message);
+			if (error.response?.status === 400) throw new Error((error.response.data as any).message);
 			else throw error;
 		});
 
@@ -256,8 +248,83 @@ class VideoHandler {
 		};
 	}
 
-	async getLive(vidParams: VideosQueryLiveAndUpcomingParameters): Promise<Video[]|PaginatedLiveVideosData> {
-		if (vidParams.paginated === undefined) return this.getLiveUnpaginated(vidParams);
+	async getLiveUnpaginated(vidParams?: VideosQueryLiveAndUpcomingParameters): Promise<Video[]> {
+		const response = await this.axiosInstance.get('/live', {
+			params: {
+				channel_id: vidParams?.channelId,
+				id: vidParams?.id,
+				include: vidParams?.include,
+				lang: vidParams?.lang,
+				limit: vidParams?.limit,
+				max_upcoming_Hours: vidParams?.maxUpcomingHours,
+				mentioned_channel_id: vidParams?.mentionedChannelId,
+				offset: vidParams?.offset,
+				order: vidParams?.order,
+				org: vidParams?.org,
+				paginated: undefined,
+				sort: vidParams?.sort,
+				status: vidParams?.status,
+				topic: vidParams?.topic,
+				type: vidParams?.type,
+			},
+		}).catch((error: AxiosError) => {
+			if (error.response?.status === 400) throw new Error((error.response.data as any).message);
+			else throw error;
+		});
+
+		const videoData: Video[] = response.data.videos.map((video: APIVideo) => ({
+			id: video.id,
+			title: video.title,
+			type: video.type,
+			topicId: video.topic_id,
+			publishedAt: video.published_at ? new Date(video.published_at) : undefined,
+			availableAt: video.available_at ? new Date(video.available_at) : undefined,
+			duration: video.duration,
+			status: video.status,
+			startScheduled: video.start_scheduled ? new Date(video.start_scheduled) : undefined,
+			startActual: video.start_actual ? new Date(video.start_actual) : undefined,
+			endActual: video.end_actual ? new Date(video.end_actual) : undefined,
+			liveViewers: video.live_viewers,
+			description: video.description,
+			songcount: video.songCount,
+			channelId: video.channel_id,
+		}));
+
+		return videoData;
+	}
+
+	async getLivePaginated(vidParams?: VideosQueryLiveAndUpcomingParameters): Promise<PaginatedVideosData> {
+		const response = await this.axiosInstance.get('/live', {
+			params: {
+				channel_id: vidParams?.channelId,
+				id: vidParams?.id,
+				include: vidParams?.include,
+				lang: vidParams?.lang,
+				limit: vidParams?.limit,
+				max_upcoming_Hours: vidParams?.maxUpcomingHours,
+				mentioned_channel_id: vidParams?.mentionedChannelId,
+				offset: vidParams?.offset,
+				order: vidParams?.order,
+				org: vidParams?.org,
+				paginated: 'true',
+				sort: vidParams?.sort,
+				status: vidParams?.status,
+				topic: vidParams?.topic,
+				type: vidParams?.type,
+			},
+		}).catch((error: AxiosError) => {
+			if (error.response?.status === 400) throw new Error((error.response.data as any).message);
+			else throw error;
+		});
+
+		return {
+			items: this.mapVideos(response.data) as Video[],
+			total: response.data.total,
+		};
+	}
+
+	async getLive(vidParams?: VideosQueryLiveAndUpcomingParameters): Promise<Video[] | PaginatedVideosData> {
+		if (vidParams?.paginated === undefined) return this.getLiveUnpaginated(vidParams);
 		return this.getLivePaginated(vidParams);
 	}
 }

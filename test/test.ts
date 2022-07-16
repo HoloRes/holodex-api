@@ -5,7 +5,9 @@ chai.should();
 
 import HolodexApiClient from '../src';
 
-const client = new HolodexApiClient();
+const client = new HolodexApiClient({
+	apiKey: '',
+});
 
 describe('Videos', () => {
 });

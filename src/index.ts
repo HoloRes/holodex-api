@@ -1,28 +1,43 @@
+import axios, { AxiosInstance } from 'axios';
 import VideoHandler from './client/videos';
 import ChannelHandler from './client/channels';
 import { Settings } from './types';
 
-class Client {
+class HolodexApiClient {
 	/**
 	 * @private
 	 * @internal
 	 */
-	private url: string;
+	private readonly url: string;
 
-	public videos: VideoHandler;
+	/**
+	 * @private
+	 * @internal
+	 */
+	private readonly axiosInstance: AxiosInstance;
 
-	public channels: ChannelHandler;
+	public readonly videos: VideoHandler;
 
-	constructor(settings: Settings = {}) {
+	public readonly channels: ChannelHandler;
+
+	constructor(settings: Settings) {
 		this.url = settings.url ?? 'https://holodex.net/api/v2';
-		this.videos = new VideoHandler(settings);
-		this.channels = new ChannelHandler(settings);
+
+		this.axiosInstance = axios.create({
+			baseURL: this.url,
+			headers: {
+				'X-APIKEY': settings.apiKey,
+			},
+		});
+
+		this.videos = new VideoHandler(this.axiosInstance);
+		this.channels = new ChannelHandler(this.axiosInstance);
 	}
 }
 
 export {
-	Client, VideoHandler, ChannelHandler,
+	HolodexApiClient, VideoHandler, ChannelHandler,
 };
 
 // @ts-expect-error Redefine error
-export = Client;
+export = HolodexApiClient;
