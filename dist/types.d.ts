@@ -10,7 +10,7 @@ export interface Settings {
  */
 export interface APIComment {
     comment_key: string;
-    videoId: string;
+    video_id: string;
     message: string;
 }
 /**
@@ -76,6 +76,7 @@ export interface APIMentions extends APIChannelMin {
  * Model corresponding to https://holodex.stoplight.io/docs/holodex/holodex_v2.yaml/components/schemas/VideoFull
  */
 export interface APIVideoFull extends APIVideo {
+    comments?: APIComment[];
     clips?: APIVideoWithChannel[];
     sources?: APIVideoWithChannel[];
     refers?: APIVideoWithChannel[];
@@ -245,6 +246,106 @@ export interface VideosQuery extends VideosQueryLiveAndUpcomingParameters {
      */
     to: Date;
 }
+/**
+ * Query Parameters for https://holodex.stoplight.io/docs/holodex/7ef9a63c3d44a-create-a-search-video-search
+ *
+ */
+export interface VideoSearchQuery {
+    /**
+     * Default: newest
+     */
+    sort?: 'oldest' | 'newest';
+    /**
+     * If set, will filter clips to only show clips with these langs + all vtuber streams (provided target is not set to filter out streams)
+     *
+     * Example: ["en", "ja"]
+     */
+    lang?: string[];
+    /**
+     * Target types of videos
+     */
+    target?: Array<'clip' | 'stream'>;
+    /**
+     * Match all the following conditions
+     */
+    conditions?: {
+        /**
+         * Look for text in video title or description
+         */
+        text: 'string';
+    }[];
+    /**
+     * Return videos that match one of the provided topics
+     */
+    topic?: string[];
+    /**
+     * Videos with all the specified channel ids.
+     * If two or more channel IDs are specified, will only return their collabs, or if one channel is a clipper, it will only show clips of the other vtubers made by this clipper
+     */
+    channels?: string[];
+    /**
+     * Videos of channels in any of the specified orgs, or clips that involve a channel in the specified org.
+     */
+    org?: string[];
+    offset?: number;
+    /**
+     * Default: 25
+     */
+    limit?: number;
+    /**
+     * If paginated is set to true, return an object with total, otherwise returns an array.
+     * Default <empty>
+     */
+    paginated?: boolean;
+}
+export interface CommentSearchQuery {
+    /**
+     * Default: newest
+     */
+    sort?: 'oldest' | 'newest';
+    /**
+     * If set, will filter clips to only show clips with these langs + all vtuber streams (provided target is not set to filter out streams)
+     *
+     * Example: ["en", "ja"]
+     */
+    lang?: string[];
+    /**
+     * Target types of videos
+     */
+    target?: Array<'clip' | 'stream'>;
+    /**
+     * Find videos with comments containing specified string (case insensitive)
+     */
+    comment: string;
+    /**
+     * Return videos that match one of the provided topics
+     */
+    topic?: string[];
+    /**
+     * Videos with all the specified channel ids.
+     * If two or more channel IDs are specified, will only return their collabs, or if one channel is a clipper, it will only show clips of the other vtubers made by this clipper
+     */
+    channels?: string[];
+    /**
+     * Videos of channels in any of the specified orgs, or clips that involve a channel in the specified org.
+     */
+    org?: string[];
+    offset?: number;
+    /**
+     * Default: 25
+     */
+    limit?: number;
+    /**
+     * If paginated is set to true, return an object with total, otherwise returns an array.
+     * Default <empty>
+     */
+    paginated?: boolean;
+}
+export interface AutocompleteResponse {
+    type: 'channel' | 'topic';
+    value: string;
+    text: string | null;
+}
 export interface ChannelMin {
     id: string;
     name: string;
@@ -287,6 +388,7 @@ export interface VideoWithChannel extends Video {
     channel: ChannelMin;
 }
 export interface VideoFull extends Video {
+    comments?: Comment[];
     clips?: VideoWithChannel[];
     sources?: VideoWithChannel[];
     refers?: VideoWithChannel[];
@@ -300,6 +402,9 @@ export interface Comment {
     videoId: string;
     message: string;
 }
+export interface VideoWithChannelAndComment extends VideoWithChannel {
+    comments: Comment[];
+}
 export interface PaginatedChannelVideosData {
     total: number;
     items: VideoFull[];
@@ -311,3 +416,15 @@ export interface PaginatedVideosData {
     total: number;
     items: Video[];
 }
+export interface PaginatedVideosWithChannelData {
+    total: number;
+    items: VideoWithChannel[];
+}
+export interface PaginatedVideosWithChannelAndCommentData {
+    total: number;
+    items: VideoWithChannelAndComment[];
+}
+/**
+ * Type for the type parameter
+ */
+export declare type VideoTypes = 'clips' | 'videos' | 'collabs';

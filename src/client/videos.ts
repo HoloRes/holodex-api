@@ -1,25 +1,15 @@
 import { AxiosError, AxiosInstance } from 'axios';
 import {
-	APIMentions,
 	APIVideo,
-	APIVideoFull,
-	APIVideoWithChannel,
-	Mention,
 	PaginatedChannelVideosData,
 	PaginatedVideosData,
 	Video,
 	VideoFull,
 	VideosQuery,
 	VideosQueryLiveAndUpcomingParameters,
-	VideosRelatedToChannelParameters,
-	VideoWithChannel,
+	VideosRelatedToChannelParameters, VideoTypes,
 } from '../types';
-
-/**
- * @internal
- * Type for the type parameter
- */
-type VideoTypes = 'clips' | 'videos' | 'collabs';
+import mapVideos from '../lib/mapVideos';
 
 class VideoHandler {
 	/**
@@ -34,84 +24,6 @@ class VideoHandler {
 	 */
 	constructor(axiosInstance: AxiosInstance) {
 		this.axiosInstance = axiosInstance;
-	}
-
-	/**
-	 * @private
-	 * @internal
-	 * @param data - An axios response to map full video's
-	 * @returns VideoFull[]
-	 * This function maps APIVideoFull to VideoFull
-	 */
-	// eslint-disable-next-line class-methods-use-this,@typescript-eslint/explicit-module-boundary-types,@typescript-eslint/no-explicit-any
-	mapVideos(data: any): VideoFull[] {
-		return data.map((video: APIVideoFull) => {
-			const mapApiVideoWithChannelToVideoWithChannel = (videos: APIVideoWithChannel[]): VideoWithChannel[] => videos.map((vid) => ({
-				id: vid.id,
-				title: vid.title,
-				type: vid.type,
-				topicId: vid.topic_id,
-				publishedAt: vid.published_at ? new Date(vid.published_at) : undefined,
-				availableAt: vid.available_at ? new Date(vid.available_at) : undefined,
-				duration: vid.duration,
-				status: vid.status,
-				startScheduled: vid.start_scheduled ? new Date(vid.start_scheduled) : undefined,
-				startActual: vid.start_actual ? new Date(vid.start_actual) : undefined,
-				endActual: vid.end_actual ? new Date(vid.end_actual) : undefined,
-				liveViewers: vid.live_viewers,
-				description: vid.description,
-				songCount: vid.songCount,
-				channelId: vid.channel_id,
-				channel: {
-					id: vid.channel.id,
-					name: vid.channel.name,
-					englishName: vid.channel.english_name,
-					type: vid.channel.type,
-					photo: vid.channel.photo,
-				},
-			}));
-
-			const clips = video.clips ? mapApiVideoWithChannelToVideoWithChannel(video.clips) : undefined;
-			const sources = video.sources ? mapApiVideoWithChannelToVideoWithChannel(video.sources) : undefined;
-			const refers = video.refers ? mapApiVideoWithChannelToVideoWithChannel(video.refers) : undefined;
-			const simulcasts = video.simulcasts ? mapApiVideoWithChannelToVideoWithChannel(video.simulcasts) : undefined;
-
-			const mentions: Mention[] | undefined = video.mentions?.map((channel: APIMentions) => ({
-				id: channel.id,
-				name: channel.name,
-				englishName: channel.english_name,
-				type: channel.type,
-				photo: channel.photo,
-				org: channel.org,
-			}));
-
-			const final: VideoFull = {
-				id: video.id,
-				title: video.title,
-				type: video.type,
-				topicId: video.topic_id,
-				publishedAt: video.published_at ? new Date(video.published_at) : undefined,
-				availableAt: video.available_at ? new Date(video.available_at) : undefined,
-				duration: video.duration,
-				status: video.status,
-				startScheduled: video.start_scheduled ? new Date(video.start_scheduled) : undefined,
-				startActual: video.start_actual ? new Date(video.start_actual) : undefined,
-				endActual: video.end_actual ? new Date(video.end_actual) : undefined,
-				liveViewers: video.live_viewers,
-				description: video.description,
-				songs: video.songs,
-				songCount: video.songCount,
-				channelId: video.channel_id,
-				channel: video.channel,
-				clips,
-				sources,
-				refers,
-				simulcasts,
-				mentions,
-			};
-
-			return final;
-		});
 	}
 
 	/**
@@ -138,7 +50,7 @@ class VideoHandler {
 
 		return {
 			total: Number.parseInt(response.data.total, 10),
-			items: this.mapVideos(response.data.items),
+			items: mapVideos(response.data.items),
 		};
 	}
 
@@ -164,7 +76,7 @@ class VideoHandler {
 			else throw error;
 		});
 
-		return this.mapVideos(response.data);
+		return mapVideos(response.data);
 	}
 
 	/**
@@ -183,7 +95,7 @@ class VideoHandler {
 	}
 
 	/**
-	 * Pretty much everything you need. This is the most 'vanilla' variant with almost no preset values, and /channels/{channelId}/{type} and /live endpoints both use the same query structure but provision default values differently for some of the query params.
+	 * Pretty much everything you need. This is the most 'vanilla' variant with almost no preset values, and /channels/\{channelId\}/\{type\} and /live endpoints both use the same query structure but provision default values differently for some of the query params.
 	 * Not as powerful at searching arbitrary text as the Search API (currently not documented/available).
 	 *
 	 * @param vidParams - object containing the query parameters for this query
@@ -214,7 +126,7 @@ class VideoHandler {
 			else throw error;
 		});
 
-		return this.mapVideos(response.data);
+		return mapVideos(response.data);
 	}
 
 	async getVideosPaginated(vidParams?: VideosQuery): Promise<PaginatedVideosData> {
@@ -244,7 +156,7 @@ class VideoHandler {
 		});
 
 		return {
-			items: this.mapVideos(response.data.items) as Video[],
+			items: mapVideos(response.data.items) as Video[],
 			total: Number.parseInt(response.data.total, 10),
 		};
 	}
@@ -319,13 +231,13 @@ class VideoHandler {
 		});
 
 		return {
-			items: this.mapVideos(response.data.items) as Video[],
+			items: mapVideos(response.data.items) as Video[],
 			total: Number.parseInt(response.data.total, 10),
 		};
 	}
 
 	async getLive(vidParams?: VideosQueryLiveAndUpcomingParameters): Promise<Video[] | PaginatedVideosData> {
-		if (vidParams?.paginated === undefined) return this.getLiveUnpaginated(vidParams);
+		if (vidParams?.paginated === false) return this.getLiveUnpaginated(vidParams);
 		return this.getLivePaginated(vidParams);
 	}
 }

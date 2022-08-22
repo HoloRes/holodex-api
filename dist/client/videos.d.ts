@@ -1,10 +1,5 @@
 import { AxiosInstance } from 'axios';
-import { PaginatedChannelVideosData, PaginatedVideosData, Video, VideoFull, VideosQuery, VideosQueryLiveAndUpcomingParameters, VideosRelatedToChannelParameters } from '../types';
-/**
- * @internal
- * Type for the type parameter
- */
-declare type VideoTypes = 'clips' | 'videos' | 'collabs';
+import { PaginatedChannelVideosData, PaginatedVideosData, Video, VideoFull, VideosQuery, VideosQueryLiveAndUpcomingParameters, VideosRelatedToChannelParameters, VideoTypes } from '../types';
 declare class VideoHandler {
     /**
      * @private
@@ -16,14 +11,6 @@ declare class VideoHandler {
      * @param axiosInstance - The new Axios instance
      */
     constructor(axiosInstance: AxiosInstance);
-    /**
-     * @private
-     * @internal
-     * @param data - An axios response to map full video's
-     * @returns VideoFull[]
-     * This function maps APIVideoFull to VideoFull
-     */
-    mapVideos(data: any): VideoFull[];
     /**
      * A simplified endpoint for access channel specific data. If you want more customization, the same result can be obtained by calling the `/videos` endpoint.
      * https://holodex.stoplight.io/docs/holodex/holodex_v2.yaml/paths/~1channels~1%7BchannelId%7D~1%7Btype%7D/get behaves differently based on whether or not the result is paginated
@@ -54,7 +41,7 @@ declare class VideoHandler {
      */
     getFromChannelWithType(channelID: string, type: VideoTypes, vidParams?: VideosRelatedToChannelParameters): Promise<VideoFull[] | PaginatedChannelVideosData>;
     /**
-     * Pretty much everything you need. This is the most 'vanilla' variant with almost no preset values, and /channels/{channelId}/{type} and /live endpoints both use the same query structure but provision default values differently for some of the query params.
+     * Pretty much everything you need. This is the most 'vanilla' variant with almost no preset values, and /channels/\{channelId\}/\{type\} and /live endpoints both use the same query structure but provision default values differently for some of the query params.
      * Not as powerful at searching arbitrary text as the Search API (currently not documented/available).
      *
      * @param vidParams - object containing the query parameters for this query

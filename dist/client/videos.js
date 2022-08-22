@@ -8,6 +8,10 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+const mapVideos_1 = __importDefault(require("../lib/mapVideos"));
 class VideoHandler {
     /**
      * @internal
@@ -15,80 +19,6 @@ class VideoHandler {
      */
     constructor(axiosInstance) {
         this.axiosInstance = axiosInstance;
-    }
-    /**
-     * @private
-     * @internal
-     * @param data - An axios response to map full video's
-     * @returns VideoFull[]
-     * This function maps APIVideoFull to VideoFull
-     */
-    // eslint-disable-next-line class-methods-use-this,@typescript-eslint/explicit-module-boundary-types,@typescript-eslint/no-explicit-any
-    mapVideos(data) {
-        return data.map((video) => {
-            var _a;
-            const mapApiVideoWithChannelToVideoWithChannel = (videos) => videos.map((vid) => ({
-                id: vid.id,
-                title: vid.title,
-                type: vid.type,
-                topicId: vid.topic_id,
-                publishedAt: vid.published_at ? new Date(vid.published_at) : undefined,
-                availableAt: vid.available_at ? new Date(vid.available_at) : undefined,
-                duration: vid.duration,
-                status: vid.status,
-                startScheduled: vid.start_scheduled ? new Date(vid.start_scheduled) : undefined,
-                startActual: vid.start_actual ? new Date(vid.start_actual) : undefined,
-                endActual: vid.end_actual ? new Date(vid.end_actual) : undefined,
-                liveViewers: vid.live_viewers,
-                description: vid.description,
-                songCount: vid.songCount,
-                channelId: vid.channel_id,
-                channel: {
-                    id: vid.channel.id,
-                    name: vid.channel.name,
-                    englishName: vid.channel.english_name,
-                    type: vid.channel.type,
-                    photo: vid.channel.photo,
-                },
-            }));
-            const clips = video.clips ? mapApiVideoWithChannelToVideoWithChannel(video.clips) : undefined;
-            const sources = video.sources ? mapApiVideoWithChannelToVideoWithChannel(video.sources) : undefined;
-            const refers = video.refers ? mapApiVideoWithChannelToVideoWithChannel(video.refers) : undefined;
-            const simulcasts = video.simulcasts ? mapApiVideoWithChannelToVideoWithChannel(video.simulcasts) : undefined;
-            const mentions = (_a = video.mentions) === null || _a === void 0 ? void 0 : _a.map((channel) => ({
-                id: channel.id,
-                name: channel.name,
-                englishName: channel.english_name,
-                type: channel.type,
-                photo: channel.photo,
-                org: channel.org,
-            }));
-            const final = {
-                id: video.id,
-                title: video.title,
-                type: video.type,
-                topicId: video.topic_id,
-                publishedAt: video.published_at ? new Date(video.published_at) : undefined,
-                availableAt: video.available_at ? new Date(video.available_at) : undefined,
-                duration: video.duration,
-                status: video.status,
-                startScheduled: video.start_scheduled ? new Date(video.start_scheduled) : undefined,
-                startActual: video.start_actual ? new Date(video.start_actual) : undefined,
-                endActual: video.end_actual ? new Date(video.end_actual) : undefined,
-                liveViewers: video.live_viewers,
-                description: video.description,
-                songs: video.songs,
-                songCount: video.songCount,
-                channelId: video.channel_id,
-                channel: video.channel,
-                clips,
-                sources,
-                refers,
-                simulcasts,
-                mentions,
-            };
-            return final;
-        });
     }
     /**
      * A simplified endpoint for access channel specific data. If you want more customization, the same result can be obtained by calling the `/videos` endpoint.
@@ -117,7 +47,7 @@ class VideoHandler {
             });
             return {
                 total: Number.parseInt(response.data.total, 10),
-                items: this.mapVideos(response.data.items),
+                items: (0, mapVideos_1.default)(response.data.items),
             };
         });
     }
@@ -146,7 +76,7 @@ class VideoHandler {
                 else
                     throw error;
             });
-            return this.mapVideos(response.data);
+            return (0, mapVideos_1.default)(response.data);
         });
     }
     /**
@@ -167,7 +97,7 @@ class VideoHandler {
         });
     }
     /**
-     * Pretty much everything you need. This is the most 'vanilla' variant with almost no preset values, and /channels/{channelId}/{type} and /live endpoints both use the same query structure but provision default values differently for some of the query params.
+     * Pretty much everything you need. This is the most 'vanilla' variant with almost no preset values, and /channels/\{channelId\}/\{type\} and /live endpoints both use the same query structure but provision default values differently for some of the query params.
      * Not as powerful at searching arbitrary text as the Search API (currently not documented/available).
      *
      * @param vidParams - object containing the query parameters for this query
@@ -201,7 +131,7 @@ class VideoHandler {
                 else
                     throw error;
             });
-            return this.mapVideos(response.data);
+            return (0, mapVideos_1.default)(response.data);
         });
     }
     getVideosPaginated(vidParams) {
@@ -234,7 +164,7 @@ class VideoHandler {
                     throw error;
             });
             return {
-                items: this.mapVideos(response.data.items),
+                items: (0, mapVideos_1.default)(response.data.items),
                 total: Number.parseInt(response.data.total, 10),
             };
         });
@@ -314,14 +244,14 @@ class VideoHandler {
                     throw error;
             });
             return {
-                items: this.mapVideos(response.data.items),
+                items: (0, mapVideos_1.default)(response.data.items),
                 total: Number.parseInt(response.data.total, 10),
             };
         });
     }
     getLive(vidParams) {
         return __awaiter(this, void 0, void 0, function* () {
-            if ((vidParams === null || vidParams === void 0 ? void 0 : vidParams.paginated) === undefined)
+            if ((vidParams === null || vidParams === void 0 ? void 0 : vidParams.paginated) === false)
                 return this.getLiveUnpaginated(vidParams);
             return this.getLivePaginated(vidParams);
         });

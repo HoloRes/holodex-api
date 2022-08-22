@@ -2,10 +2,11 @@
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
-exports.ChannelHandler = exports.VideoHandler = exports.HolodexApiClient = void 0;
+exports.SearchHandler = exports.ChannelHandler = exports.VideoHandler = exports.HolodexApiClient = void 0;
 const axios_1 = __importDefault(require("axios"));
 const videos_1 = __importDefault(require("./client/videos"));
 const channels_1 = __importDefault(require("./client/channels"));
+const search_1 = __importDefault(require("./client/search"));
 class HolodexApiClient {
     constructor(settings) {
         var _a;
@@ -18,6 +19,8 @@ class HolodexApiClient {
         });
         this.videos = new videos_1.default(this.axiosInstance);
         this.channels = new channels_1.default(this.axiosInstance);
+        this.search = new search_1.default(this.axiosInstance);
     }
 }
+exports.default = HolodexApiClient;
 module.exports = HolodexApiClient;
