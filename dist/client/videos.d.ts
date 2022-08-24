@@ -12,6 +12,18 @@ declare class VideoHandler {
      */
     constructor(axiosInstance: AxiosInstance);
     /**
+     * Retrieves a video object.
+     * Also retrieves Comments if query parameter c is set.
+     * Also retrieves Recommendations if query parameter lang is set
+     *
+     * @param videoId - ID of a Youtube Video
+     * @param query - Lang is a comma separated list of language codes to filter channels/clips, official streams do not follow this parameter. If c is true, response will include with all timestamp comments for this video.
+     */
+    getVideo(videoId: string, query?: {
+        lang: string;
+        c: boolean;
+    }): Promise<VideoFull>;
+    /**
      * A simplified endpoint for access channel specific data. If you want more customization, the same result can be obtained by calling the `/videos` endpoint.
      * https://holodex.stoplight.io/docs/holodex/holodex_v2.yaml/paths/~1channels~1%7BchannelId%7D~1%7Btype%7D/get behaves differently based on whether or not the result is paginated
      * This is the paginated version
@@ -51,6 +63,7 @@ declare class VideoHandler {
     getLiveUnpaginated(vidParams?: VideosQueryLiveAndUpcomingParameters): Promise<Video[]>;
     getLivePaginated(vidParams?: VideosQueryLiveAndUpcomingParameters): Promise<PaginatedVideosData>;
     getLive(vidParams?: VideosQueryLiveAndUpcomingParameters): Promise<Video[] | PaginatedVideosData>;
+    getLiveSimple(channels: string[]): Promise<any>;
 }
 export default VideoHandler;
 export = VideoHandler;

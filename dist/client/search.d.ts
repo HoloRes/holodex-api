@@ -41,7 +41,9 @@ declare class SearchHandler {
      */
     searchComments(searchParams: CommentSearchQuery): Promise<VideoWithChannelAndComment[] | PaginatedVideosWithChannelAndCommentData>;
     /**
-     * Query the autocomplete API of Holodex
+     * @experimental As of 1.1.0
+     * Query the autocomplete API of Holodex, do not use unless absolutely necessary.
+     * This is an undocumented endpoint and may change or stop working at any time.
      *
      * @param query - What to search for
      * @param filter - Filter out to a specific type

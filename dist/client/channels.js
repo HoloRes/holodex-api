@@ -44,7 +44,7 @@ class ChannelHandler {
                 else
                     throw error;
             });
-            const channelData = response.data.channels.map((ch) => {
+            const channelData = response.data.map((ch) => {
                 var _a, _b, _c, _d, _e, _f, _g;
                 return ({
                     id: ch.id,

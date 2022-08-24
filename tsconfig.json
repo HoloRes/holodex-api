@@ -4,7 +4,7 @@
 	  "target": "es6"
 	},
 	"include": [
-	  "./**/*.ts",
+	  "./src/**/*.ts",
 	],
 	"extends": "@tsconfig/node14/tsconfig.json"
 }

@@ -21,6 +21,31 @@ class VideoHandler {
         this.axiosInstance = axiosInstance;
     }
     /**
+     * Retrieves a video object.
+     * Also retrieves Comments if query parameter c is set.
+     * Also retrieves Recommendations if query parameter lang is set
+     *
+     * @param videoId - ID of a Youtube Video
+     * @param query - Lang is a comma separated list of language codes to filter channels/clips, official streams do not follow this parameter. If c is true, response will include with all timestamp comments for this video.
+     */
+    getVideo(videoId, query) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const response = yield this.axiosInstance.get(`/videos/${videoId}`, {
+                params: {
+                    lang: query === null || query === void 0 ? void 0 : query.lang,
+                    c: (query === null || query === void 0 ? void 0 : query.c) === true ? '1' : '0',
+                },
+            }).catch((error) => {
+                var _a;
+                if (((_a = error.response) === null || _a === void 0 ? void 0 : _a.status) === 400)
+                    throw new Error(error.response.data.message);
+                else
+                    throw error;
+            });
+            return (0, mapVideos_1.default)([response.data])[0];
+        });
+    }
+    /**
      * A simplified endpoint for access channel specific data. If you want more customization, the same result can be obtained by calling the `/videos` endpoint.
      * https://holodex.stoplight.io/docs/holodex/holodex_v2.yaml/paths/~1channels~1%7BchannelId%7D~1%7Btype%7D/get behaves differently based on whether or not the result is paginated
      * This is the paginated version
@@ -196,24 +221,7 @@ class VideoHandler {
                 else
                     throw error;
             });
-            const videoData = response.data.videos.map((video) => ({
-                id: video.id,
-                title: video.title,
-                type: video.type,
-                topicId: video.topic_id,
-                publishedAt: video.published_at ? new Date(video.published_at) : undefined,
-                availableAt: video.available_at ? new Date(video.available_at) : undefined,
-                duration: video.duration,
-                status: video.status,
-                startScheduled: video.start_scheduled ? new Date(video.start_scheduled) : undefined,
-                startActual: video.start_actual ? new Date(video.start_actual) : undefined,
-                endActual: video.end_actual ? new Date(video.end_actual) : undefined,
-                liveViewers: video.live_viewers,
-                description: video.description,
-                songcount: video.songCount,
-                channelId: video.channel_id,
-            }));
-            return videoData;
+            return (0, mapVideos_1.default)(response.data);
         });
     }
     getLivePaginated(vidParams) {
@@ -254,6 +262,22 @@ class VideoHandler {
             if ((vidParams === null || vidParams === void 0 ? void 0 : vidParams.paginated) === false)
                 return this.getLiveUnpaginated(vidParams);
             return this.getLivePaginated(vidParams);
+        });
+    }
+    getLiveSimple(channels) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const response = yield this.axiosInstance.get('/users/live', {
+                params: {
+                    channels: channels.join(','),
+                },
+            }).catch((error) => {
+                var _a;
+                if (((_a = error.response) === null || _a === void 0 ? void 0 : _a.status) === 400)
+                    throw new Error(error.response.data.message);
+                else
+                    throw error;
+            });
+            return (0, mapVideos_1.default)(response.data);
         });
     }
 }
