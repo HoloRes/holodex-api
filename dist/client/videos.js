@@ -128,13 +128,14 @@ class VideoHandler {
      * @param vidParams - object containing the query parameters for this query
      */
     getVideosUnpaginated(vidParams) {
+        var _a;
         return __awaiter(this, void 0, void 0, function* () {
             const response = yield this.axiosInstance.get('/videos', {
                 params: {
                     channel_id: vidParams === null || vidParams === void 0 ? void 0 : vidParams.channelId,
                     from: (vidParams === null || vidParams === void 0 ? void 0 : vidParams.from) && (vidParams === null || vidParams === void 0 ? void 0 : vidParams.from.toISOString()),
                     id: vidParams === null || vidParams === void 0 ? void 0 : vidParams.id,
-                    include: vidParams === null || vidParams === void 0 ? void 0 : vidParams.include,
+                    include: (_a = vidParams === null || vidParams === void 0 ? void 0 : vidParams.include) === null || _a === void 0 ? void 0 : _a.join(','),
                     lang: vidParams === null || vidParams === void 0 ? void 0 : vidParams.lang,
                     limit: vidParams === null || vidParams === void 0 ? void 0 : vidParams.limit,
                     max_upcoming_Hours: vidParams === null || vidParams === void 0 ? void 0 : vidParams.maxUpcomingHours,
@@ -160,13 +161,14 @@ class VideoHandler {
         });
     }
     getVideosPaginated(vidParams) {
+        var _a;
         return __awaiter(this, void 0, void 0, function* () {
             const response = yield this.axiosInstance.get('/videos', {
                 params: {
                     channel_id: vidParams === null || vidParams === void 0 ? void 0 : vidParams.channelId,
                     from: (vidParams === null || vidParams === void 0 ? void 0 : vidParams.from) && (vidParams === null || vidParams === void 0 ? void 0 : vidParams.from.toISOString()),
                     id: vidParams === null || vidParams === void 0 ? void 0 : vidParams.id,
-                    include: vidParams === null || vidParams === void 0 ? void 0 : vidParams.include,
+                    include: (_a = vidParams === null || vidParams === void 0 ? void 0 : vidParams.include) === null || _a === void 0 ? void 0 : _a.join(','),
                     lang: vidParams === null || vidParams === void 0 ? void 0 : vidParams.lang,
                     limit: vidParams === null || vidParams === void 0 ? void 0 : vidParams.limit,
                     max_upcoming_Hours: vidParams === null || vidParams === void 0 ? void 0 : vidParams.maxUpcomingHours,
@@ -195,12 +197,13 @@ class VideoHandler {
         });
     }
     getLiveUnpaginated(vidParams) {
+        var _a;
         return __awaiter(this, void 0, void 0, function* () {
             const response = yield this.axiosInstance.get('/live', {
                 params: {
                     channel_id: vidParams === null || vidParams === void 0 ? void 0 : vidParams.channelId,
                     id: vidParams === null || vidParams === void 0 ? void 0 : vidParams.id,
-                    include: vidParams === null || vidParams === void 0 ? void 0 : vidParams.include,
+                    include: (_a = vidParams === null || vidParams === void 0 ? void 0 : vidParams.include) === null || _a === void 0 ? void 0 : _a.join(','),
                     lang: vidParams === null || vidParams === void 0 ? void 0 : vidParams.lang,
                     limit: vidParams === null || vidParams === void 0 ? void 0 : vidParams.limit,
                     max_upcoming_Hours: vidParams === null || vidParams === void 0 ? void 0 : vidParams.maxUpcomingHours,
@@ -225,12 +228,13 @@ class VideoHandler {
         });
     }
     getLivePaginated(vidParams) {
+        var _a;
         return __awaiter(this, void 0, void 0, function* () {
             const response = yield this.axiosInstance.get('/live', {
                 params: {
                     channel_id: vidParams === null || vidParams === void 0 ? void 0 : vidParams.channelId,
                     id: vidParams === null || vidParams === void 0 ? void 0 : vidParams.id,
-                    include: vidParams === null || vidParams === void 0 ? void 0 : vidParams.include,
+                    include: (_a = vidParams === null || vidParams === void 0 ? void 0 : vidParams.include) === null || _a === void 0 ? void 0 : _a.join(','),
                     lang: vidParams === null || vidParams === void 0 ? void 0 : vidParams.lang,
                     limit: vidParams === null || vidParams === void 0 ? void 0 : vidParams.limit,
                     max_upcoming_Hours: vidParams === null || vidParams === void 0 ? void 0 : vidParams.maxUpcomingHours,

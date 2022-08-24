@@ -102,9 +102,7 @@ export interface PaginatedVideos {
 	videos: APIVideoFull[];
 }
 
-export interface ExtraVideoInfo {
-	item?: 'clips' | 'refers' | 'sources' | 'simulcasts' | 'mentions' | 'description' | 'live_info' | 'channel_stats' | 'songs'
-}
+export type ExtraVideoInfo = 'clips' | 'refers' | 'sources' | 'simulcasts' | 'mentions' | 'description' | 'live_info' | 'channel_stats' | 'songs';
 
 // Parameter types
 /**
