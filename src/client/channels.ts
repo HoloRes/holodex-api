@@ -41,7 +41,7 @@ class ChannelHandler {
 			else throw error;
 		});
 
-		const channelData: Channel[] = response.data.channels.map((ch: APIChannel): Channel => ({
+		const channelData: Channel[] = response.data.map((ch: APIChannel): Channel => ({
 			id: ch.id,
 			name: ch.name,
 			englishName: ch.english_name ?? undefined,

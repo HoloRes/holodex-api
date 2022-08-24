@@ -1,13 +1,13 @@
 import { AxiosError, AxiosInstance } from 'axios';
 import {
-	APIVideo,
 	PaginatedChannelVideosData,
 	PaginatedVideosData,
 	Video,
 	VideoFull,
 	VideosQuery,
 	VideosQueryLiveAndUpcomingParameters,
-	VideosRelatedToChannelParameters, VideoTypes,
+	VideosRelatedToChannelParameters,
+	VideoTypes,
 } from '../types';
 import mapVideos from '../lib/mapVideos';
 
@@ -24,6 +24,28 @@ class VideoHandler {
 	 */
 	constructor(axiosInstance: AxiosInstance) {
 		this.axiosInstance = axiosInstance;
+	}
+
+	/**
+	 * Retrieves a video object.
+	 * Also retrieves Comments if query parameter c is set.
+	 * Also retrieves Recommendations if query parameter lang is set
+	 *
+	 * @param videoId - ID of a Youtube Video
+	 * @param query - Lang is a comma separated list of language codes to filter channels/clips, official streams do not follow this parameter. If c is true, response will include with all timestamp comments for this video.
+	 */
+	async getVideo(videoId: string, query?: { lang: string, c: boolean }): Promise<VideoFull> {
+		const response = await this.axiosInstance.get(`/videos/${videoId}`, {
+			params: {
+				lang: query?.lang,
+				c: query?.c === true ? '1' : '0',
+			},
+		}).catch((error: AxiosError) => {
+			if (error.response?.status === 400) throw new Error(((error.response.data as any) as any).message);
+			else throw error;
+		});
+
+		return mapVideos([response.data])[0];
 	}
 
 	/**
@@ -185,25 +207,7 @@ class VideoHandler {
 			else throw error;
 		});
 
-		const videoData: Video[] = response.data.videos.map((video: APIVideo) => ({
-			id: video.id,
-			title: video.title,
-			type: video.type,
-			topicId: video.topic_id,
-			publishedAt: video.published_at ? new Date(video.published_at) : undefined,
-			availableAt: video.available_at ? new Date(video.available_at) : undefined,
-			duration: video.duration,
-			status: video.status,
-			startScheduled: video.start_scheduled ? new Date(video.start_scheduled) : undefined,
-			startActual: video.start_actual ? new Date(video.start_actual) : undefined,
-			endActual: video.end_actual ? new Date(video.end_actual) : undefined,
-			liveViewers: video.live_viewers,
-			description: video.description,
-			songcount: video.songCount,
-			channelId: video.channel_id,
-		}));
-
-		return videoData;
+		return mapVideos(response.data);
 	}
 
 	async getLivePaginated(vidParams?: VideosQueryLiveAndUpcomingParameters): Promise<PaginatedVideosData> {
@@ -239,6 +243,19 @@ class VideoHandler {
 	async getLive(vidParams?: VideosQueryLiveAndUpcomingParameters): Promise<Video[] | PaginatedVideosData> {
 		if (vidParams?.paginated === false) return this.getLiveUnpaginated(vidParams);
 		return this.getLivePaginated(vidParams);
+	}
+
+	async getLiveSimple(channels: string[]) {
+		const response = await this.axiosInstance.get('/users/live', {
+			params: {
+				channels: channels.join(','),
+			},
+		}).catch((error: AxiosError) => {
+			if (error.response?.status === 400) throw new Error((error.response.data as any).message);
+			else throw error;
+		});
+
+		return mapVideos(response.data);
 	}
 }
 

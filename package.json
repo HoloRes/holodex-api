@@ -1,6 +1,6 @@
 {
   "name": "@holores/holodex",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "description": "A Typescript library for the Holotools API.",
   "main": "dist/index.js",
   "scripts": {
@@ -11,13 +11,14 @@
     "docs": "typedoc --excludeInternal --out docs src/index.ts src/types.ts",
     "lint": "eslint src/",
     "lint:fix": "eslint --fix src/",
-    "prepublishOnly": "npm run lint:fix && npm run build && npm run docs"
+    "prepublishOnly": "npm run lint:fix && npm run build && npm run test && npm run docs"
   },
   "dependencies": {
     "axios": "^0.27.2"
   },
   "devDependencies": {
     "@types/chai": "4.3.3",
+    "@types/chai-as-promised": "^7.1.5",
     "@types/mocha": "9.1.1",
     "@types/node": "18.7.9",
     "@typescript-eslint/eslint-plugin": "5.34.0",
