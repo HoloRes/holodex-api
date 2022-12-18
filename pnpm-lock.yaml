@@ -17,7 +17,7 @@ specifiers:
   mocha: 10.0.0
   np: 7.6.2
   ts-node: 10.9.1
-  typedoc: 0.23.22
+  typedoc: 0.23.23
   typescript: 4.9.4
 
 dependencies:
@@ -39,7 +39,7 @@ devDependencies:
   mocha: 10.0.0
   np: 7.6.2
   ts-node: 10.9.1_moeqx3xmzxqxagf2sz6mqkbb7m
-  typedoc: 0.23.22_typescript@4.9.4
+  typedoc: 0.23.23_typescript@4.9.4
   typescript: 4.9.4
 
 packages:
@@ -2504,8 +2504,8 @@ packages:
     engines: {node: '>=8'}
     dev: true
 
-  /marked/4.0.19:
-    resolution: {integrity: sha512-rgQF/OxOiLcvgUAj1Q1tAf4Bgxn5h5JZTp04Fx4XUkVhs7B+7YA9JEWJhJpoO8eJt8MkZMwqLCNeNqj1bCREZQ==}
+  /marked/4.2.4:
+    resolution: {integrity: sha512-Wcc9ikX7Q5E4BYDPvh1C6QNSxrjC9tBgz+A/vAhp59KXUgachw++uMvMKiSW8oA85nopmPZcEvBoex/YLMsiyA==}
     engines: {node: '>= 12'}
     hasBin: true
     dev: true
@@ -2599,8 +2599,8 @@ packages:
       brace-expansion: 2.0.1
     dev: true
 
-  /minimatch/5.1.0:
-    resolution: {integrity: sha512-9TPBGGak4nHfGZsPBohm9AWg6NoT7QTCehS3BIJABslyZbzxfV78QM2Y6+i741OPZIafFAaiiEMh5OyIrJPgtg==}
+  /minimatch/5.1.1:
+    resolution: {integrity: sha512-362NP+zlprccbEt/SkxKfRMHnNY85V74mVnpUpNyr3F35covl09Kec7/sEFLt3RA4oXmewtoaanoIf67SE5Y5g==}
     engines: {node: '>=10'}
     dependencies:
       brace-expansion: 2.0.1
@@ -3707,16 +3707,16 @@ packages:
       is-typedarray: 1.0.0
     dev: true
 
-  /typedoc/0.23.22_typescript@4.9.4:
-    resolution: {integrity: sha512-5sJkjK60xp8A7YpcYniu3+Wf0QcgojEnhzHuCN+CkdpQkKRhOspon/9+sGTkGI8kjVkZs3KHrhltpQyVhRMVfw==}
+  /typedoc/0.23.23_typescript@4.9.4:
+    resolution: {integrity: sha512-cg1YQWj+/BU6wq74iott513U16fbrPCbyYs04PHZgvoKJIc6EY4xNobyDZh4KMfRGW8Yjv6wwIzQyoqopKOUGw==}
     engines: {node: '>= 14.14'}
     hasBin: true
     peerDependencies:
       typescript: 4.6.x || 4.7.x || 4.8.x || 4.9.x
     dependencies:
       lunr: 2.3.9
-      marked: 4.0.19
-      minimatch: 5.1.0
+      marked: 4.2.4
+      minimatch: 5.1.1
       shiki: 0.11.1
       typescript: 4.9.4
     dev: true
