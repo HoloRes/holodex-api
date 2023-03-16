@@ -17,7 +17,7 @@ specifiers:
   mocha: 10.0.0
   np: 7.6.3
   ts-node: 10.9.1
-  typedoc: 0.23.26
+  typedoc: 0.23.27
   typescript: 4.9.5
 
 dependencies:
@@ -39,7 +39,7 @@ devDependencies:
   mocha: 10.0.0
   np: 7.6.3
   ts-node: 10.9.1_cbfmry4sbbh4vatmdrsmatfg5a
-  typedoc: 0.23.26_typescript@4.9.5
+  typedoc: 0.23.27_typescript@4.9.5
   typescript: 4.9.5
 
 packages:
@@ -3795,8 +3795,8 @@ packages:
       is-typedarray: 1.0.0
     dev: true
 
-  /typedoc/0.23.26_typescript@4.9.5:
-    resolution: {integrity: sha512-5m4KwR5tOLnk0OtMaRn9IdbeRM32uPemN9kur7YK9wFqx8U0CYrvO9aVq6ysdZSV1c824BTm+BuQl2Ze/k1HtA==}
+  /typedoc/0.23.27_typescript@4.9.5:
+    resolution: {integrity: sha512-YKjlxX3LEhYbMCkemjlpNh1OKDiFa+ynqP0VRPsH28bEugrMTGI6l8DC6oX5kzFcUKKlYWKpZDSGWszuO/FR3g==}
     engines: {node: '>= 14.14'}
     hasBin: true
     peerDependencies:
