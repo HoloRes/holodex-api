@@ -52,8 +52,8 @@ devDependencies:
     specifier: 10.9.1
     version: 10.9.1(@types/node@18.15.11)(typescript@4.9.5)
   typedoc:
-    specifier: 0.24.2
-    version: 0.24.2(typescript@4.9.5)
+    specifier: 0.24.3
+    version: 0.24.3(typescript@4.9.5)
   typescript:
     specifier: 4.9.5
     version: 4.9.5
@@ -3799,8 +3799,8 @@ packages:
       is-typedarray: 1.0.0
     dev: true
 
-  /typedoc@0.24.2(typescript@4.9.5):
-    resolution: {integrity: sha512-Ln1EItgcdKfRzaFSfs9uEc4amz9ZeUZoaTbFdH0ZC8ScA2OjvNMdW7vrjTtZwKE0iF38njUmuFFgQMP4tDl7ag==}
+  /typedoc@0.24.3(typescript@4.9.5):
+    resolution: {integrity: sha512-WvKKVWb+1X5KVtq8hmeby3LfVxIT1GCIKp5yYum8kZuhJJIQA5EgmdF+SBDs9oLAg2IDm8/mTI+80A9paKdKpA==}
     engines: {node: '>= 14.14'}
     hasBin: true
     peerDependencies:
