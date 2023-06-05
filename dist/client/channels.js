@@ -44,7 +44,7 @@ class ChannelHandler {
                 else
                     throw error;
             });
-            const channelData = response.data.map((ch) => {
+            return response.data.map((ch) => {
                 var _a, _b, _c, _d, _e, _f, _g;
                 return ({
                     id: ch.id,
@@ -56,17 +56,16 @@ class ChannelHandler {
                     subOrg: (_d = ch.suborg) !== null && _d !== void 0 ? _d : undefined,
                     banner: (_e = ch.banner) !== null && _e !== void 0 ? _e : undefined,
                     twitter: (_f = ch.twitter) !== null && _f !== void 0 ? _f : undefined,
-                    videoCount: ch.video_count ? parseInt(ch.video_count, 10) : undefined,
-                    subscriberCount: ch.subscriber_count ? parseInt(ch.subscriber_count, 10) : undefined,
-                    viewCount: ch.view_count ? parseInt(ch.view_count, 10) : undefined,
-                    clipCount: ch.clip_count ? parseInt(ch.clip_count, 10) : undefined,
+                    videoCount: ch.video_count ? Number.parseInt(ch.video_count, 10) : undefined,
+                    subscriberCount: ch.subscriber_count ? Number.parseInt(ch.subscriber_count, 10) : undefined,
+                    viewCount: ch.view_count ? Number.parseInt(ch.view_count, 10) : undefined,
+                    clipCount: ch.clip_count ? Number.parseInt(ch.clip_count, 10) : undefined,
                     lang: (_g = ch.lang) !== null && _g !== void 0 ? _g : undefined,
                     publishedAt: new Date(ch.published_at),
                     inactive: ch.inactive,
                     description: ch.description,
                 });
             });
-            return channelData;
         });
     }
     /**
@@ -84,7 +83,7 @@ class ChannelHandler {
                 else
                     throw error;
             });
-            const channelData = {
+            return {
                 id: response.data.id,
                 name: response.data.name,
                 englishName: (_a = response.data.english_name) !== null && _a !== void 0 ? _a : undefined,
@@ -94,16 +93,15 @@ class ChannelHandler {
                 subOrg: (_d = response.data.suborg) !== null && _d !== void 0 ? _d : undefined,
                 banner: (_e = response.data.banner) !== null && _e !== void 0 ? _e : undefined,
                 twitter: (_f = response.data.twitter) !== null && _f !== void 0 ? _f : undefined,
-                videoCount: response.data.video_count ? parseInt(response.data.video_count, 10) : undefined,
-                subscriberCount: response.data.subscriber_count ? parseInt(response.data.subscriber_count, 10) : undefined,
-                viewCount: response.data.view_count ? parseInt(response.data.view_count, 10) : undefined,
-                clipCount: response.data.clip_count ? parseInt(response.data.clip_count, 10) : undefined,
+                videoCount: response.data.video_count ? Number.parseInt(response.data.video_count, 10) : undefined,
+                subscriberCount: response.data.subscriber_count ? Number.parseInt(response.data.subscriber_count, 10) : undefined,
+                viewCount: response.data.view_count ? Number.parseInt(response.data.view_count, 10) : undefined,
+                clipCount: response.data.clip_count ? Number.parseInt(response.data.clip_count, 10) : undefined,
                 lang: (_g = response.data.lang) !== null && _g !== void 0 ? _g : undefined,
                 publishedAt: new Date(response.data.published_at),
                 inactive: response.data.inactive,
                 description: response.data.description,
             };
-            return channelData;
         });
     }
 }

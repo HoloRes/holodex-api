@@ -41,7 +41,7 @@ class ChannelHandler {
 			else throw error;
 		});
 
-		const channelData: Channel[] = response.data.map((ch: APIChannel): Channel => ({
+		return response.data.map((ch: APIChannel): Channel => ({
 			id: ch.id,
 			name: ch.name,
 			englishName: ch.english_name ?? undefined,
@@ -51,17 +51,15 @@ class ChannelHandler {
 			subOrg: ch.suborg ?? undefined,
 			banner: ch.banner ?? undefined,
 			twitter: ch.twitter ?? undefined,
-			videoCount: ch.video_count ? parseInt(ch.video_count, 10) : undefined,
-			subscriberCount: ch.subscriber_count ? parseInt(ch.subscriber_count, 10) : undefined,
-			viewCount: ch.view_count ? parseInt(ch.view_count, 10) : undefined,
-			clipCount: ch.clip_count ? parseInt(ch.clip_count, 10) : undefined,
+			videoCount: ch.video_count ? Number.parseInt(ch.video_count, 10) : undefined,
+			subscriberCount: ch.subscriber_count ? Number.parseInt(ch.subscriber_count, 10) : undefined,
+			viewCount: ch.view_count ? Number.parseInt(ch.view_count, 10) : undefined,
+			clipCount: ch.clip_count ? Number.parseInt(ch.clip_count, 10) : undefined,
 			lang: ch.lang ?? undefined,
 			publishedAt: new Date(ch.published_at),
 			inactive: ch.inactive,
 			description: ch.description,
 		}));
-
-		return channelData;
 	}
 
 	/**
@@ -75,7 +73,7 @@ class ChannelHandler {
 				else throw error;
 			});
 
-		const channelData: Channel = {
+		return {
 			id: response.data.id,
 			name: response.data.name,
 			englishName: response.data.english_name ?? undefined,
@@ -85,17 +83,15 @@ class ChannelHandler {
 			subOrg: response.data.suborg ?? undefined,
 			banner: response.data.banner ?? undefined,
 			twitter: response.data.twitter ?? undefined,
-			videoCount: response.data.video_count ? parseInt(response.data.video_count, 10) : undefined,
-			subscriberCount: response.data.subscriber_count ? parseInt(response.data.subscriber_count, 10) : undefined,
-			viewCount: response.data.view_count ? parseInt(response.data.view_count, 10) : undefined,
-			clipCount: response.data.clip_count ? parseInt(response.data.clip_count, 10) : undefined,
+			videoCount: response.data.video_count ? Number.parseInt(response.data.video_count, 10) : undefined,
+			subscriberCount: response.data.subscriber_count ? Number.parseInt(response.data.subscriber_count, 10) : undefined,
+			viewCount: response.data.view_count ? Number.parseInt(response.data.view_count, 10) : undefined,
+			clipCount: response.data.clip_count ? Number.parseInt(response.data.clip_count, 10) : undefined,
 			lang: response.data.lang ?? undefined,
 			publishedAt: new Date(response.data.published_at),
 			inactive: response.data.inactive,
 			description: response.data.description,
 		};
-
-		return channelData;
 	}
 }
 

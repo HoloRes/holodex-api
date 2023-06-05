@@ -1,59 +1,59 @@
 {
-  "name": "@holores/holodex",
-  "version": "1.2.2",
-  "description": "A Typescript library for the Holotools API.",
-  "main": "dist/index.js",
-  "scripts": {
-    "build": "tsc -d",
-    "test": "mocha -r ts-node/register test/*.ts --timeout 5000",
-    "test:commonjs": "npm run build && mocha --timeout 5000",
-    "test:full": "npm run test && npm run test:commonjs",
-    "docs": "typedoc --excludeInternal --out docs src/index.ts src/types.ts",
-    "lint": "eslint src/",
-    "lint:fix": "eslint --fix src/",
-    "prepublishOnly": "pnpm run lint:fix && pnpm run build && pnpm run test:full && pnpm run docs"
-  },
-  "dependencies": {
-    "axios": "^0.27.2"
-  },
-  "devDependencies": {
-    "@types/chai": "4.3.5",
-    "@types/chai-as-promised": "7.1.5",
-    "@types/mocha": "9.1.1",
-    "@types/node": "18.16.16",
-    "@typescript-eslint/eslint-plugin": "5.59.8",
-    "@typescript-eslint/parser": "5.59.8",
-    "chai": "4.3.7",
-    "chai-as-promised": "7.1.1",
-    "eslint": "8.42.0",
-    "eslint-config-airbnb-base": "15.0.0",
-    "eslint-config-airbnb-typescript": "17.0.0",
-    "eslint-plugin-import": "2.27.5",
-    "mocha": "10.0.0",
-    "np": "7.7.0",
-    "ts-node": "10.9.1",
-    "typedoc": "0.24.8",
-    "typescript": "4.9.5"
-  },
-  "keywords": [
-    "hololive",
-    "holodex",
-    "api"
-  ],
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/HoloRes/holodex-api.git"
-  },
-  "author": "Ninjastahr",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/HoloRes/holodex-api/issues"
-  },
-  "homepage": "https://github.com/HoloRes/holodex-api#readme",
-  "directories": {
-    "doc": "docs"
-  },
-  "publishConfig": {
-    "access": "public"
-  }
+	"name": "@holores/holodex",
+	"version": "1.2.3",
+	"description": "A Typescript library for the Holodex API.",
+	"main": "dist/index.js",
+	"scripts": {
+		"build": "tsc -d",
+		"test": "mocha -r ts-node/register test/*.ts --timeout 10000",
+		"test:commonjs": "pnpm build && mocha --timeout 10000",
+		"test:full": "pnpm run test && pnpm run test:commonjs",
+		"docs": "typedoc --excludeInternal --out docs src/index.ts src/types.ts",
+		"lint": "eslint src/",
+		"lint:fix": "eslint --fix src/",
+		"prepublishOnly": "pnpm run lint:fix && pnpm run build && pnpm run test:full && pnpm run docs"
+	},
+	"dependencies": {
+		"axios": "^1.4.0"
+	},
+	"devDependencies": {
+		"@types/chai": "4.3.5",
+		"@types/chai-as-promised": "7.1.5",
+		"@types/mocha": "10.0.1",
+		"@types/node": "20.2.5",
+		"@typescript-eslint/eslint-plugin": "5.59.8",
+		"@typescript-eslint/parser": "5.59.8",
+		"chai": "4.3.7",
+		"chai-as-promised": "7.1.1",
+		"eslint": "8.42.0",
+		"eslint-config-airbnb-base": "15.0.0",
+		"eslint-config-airbnb-typescript": "17.0.0",
+		"eslint-plugin-import": "2.27.5",
+		"mocha": "10.2.0",
+		"np": "8.0.2",
+		"ts-node": "10.9.1",
+		"typedoc": "0.24.8",
+		"typescript": "5.1.3"
+	},
+	"keywords": [
+		"hololive",
+		"holodex",
+		"api"
+	],
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/HoloRes/holodex-api.git"
+	},
+	"author": "Ninjastahr",
+	"license": "MIT",
+	"bugs": {
+		"url": "https://github.com/HoloRes/holodex-api/issues"
+	},
+	"homepage": "https://github.com/HoloRes/holodex-api#readme",
+	"directories": {
+		"doc": "docs"
+	},
+	"publishConfig": {
+		"access": "public"
+	}
 }

@@ -92,7 +92,7 @@ export interface PaginatedVideos {
     total: number;
     videos: APIVideoFull[];
 }
-export declare type ExtraVideoInfo = 'clips' | 'refers' | 'sources' | 'simulcasts' | 'mentions' | 'description' | 'live_info' | 'channel_stats' | 'songs';
+export type ExtraVideoInfo = 'clips' | 'refers' | 'sources' | 'simulcasts' | 'mentions' | 'description' | 'live_info' | 'channel_stats' | 'songs';
 /**
  * Query Parameters for https://holodex.stoplight.io/docs/holodex/holodex_v2.yaml/paths/~1channels/get
  */
@@ -425,4 +425,4 @@ export interface PaginatedVideosWithChannelAndCommentData {
 /**
  * Type for the type parameter
  */
-export declare type VideoTypes = 'clips' | 'videos' | 'collabs';
+export type VideoTypes = 'clips' | 'videos' | 'collabs';
