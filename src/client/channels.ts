@@ -1,30 +1,30 @@
 import { AxiosError, AxiosInstance } from 'axios';
-import { APIChannel, Channel, ListChannelParameters } from '../types';
+import { APIChannelListChannel, Channel, ListChannelParameters } from '../types';
 
 /**
  * Handles all endpoints related to channels
  */
 class ChannelHandler {
 	/**
-	 * @private
-	 * @internal
-	 */
+     * @private
+     * @internal
+     */
 	private axiosInstance: AxiosInstance;
 
 	/**
-	 * @internal
-	 * @param axiosInstance - The new Axios instance
-	 */
+     * @internal
+     * @param axiosInstance - The new Axios instance
+     */
 	constructor(axiosInstance: AxiosInstance) {
 		this.axiosInstance = axiosInstance;
 	}
 
 	/**
-	 * Lists channels according to the given search term.
-	 * Endpoint: https://holodex.stoplight.io/docs/holodex/holodex_v2.yaml/paths/~1channels/get
-	 *
-	 * @param LCParams - Parameters for narrowing the search
-	 */
+     * Lists channels according to the given search term.
+     * Endpoint: https://holodex.stoplight.io/docs/holodex/holodex_v2.yaml/paths/~1channels/get
+     *
+     * @param LCParams - Parameters for narrowing the search
+     */
 	async list(LCParams?: ListChannelParameters): Promise<Channel[]> {
 		const response = await this.axiosInstance.get('/channels', {
 			params: {
@@ -36,19 +36,23 @@ class ChannelHandler {
 				sort: LCParams?.sort,
 				type: LCParams?.type,
 			},
-		}).catch((error: AxiosError) => {
-			if (error.response?.status === 400) throw new Error((error.response.data as any).message);
-			else throw error;
-		});
+		})
+			.catch((error: AxiosError) => {
+				if (error.response?.status === 400) {
+					throw new Error((error.response.data as any).message);
+				} else {
+					throw error;
+				}
+			});
 
-		return response.data.map((ch: APIChannel): Channel => ({
+		return response.data.map((ch: APIChannelListChannel): Channel => ({
 			id: ch.id,
 			name: ch.name,
 			englishName: ch.english_name ?? undefined,
 			type: ch.type,
 			photo: ch.photo ?? undefined,
 			org: ch.org ?? undefined,
-			subOrg: ch.suborg ?? undefined,
+			subOrg: ch.group ?? undefined,
 			banner: ch.banner ?? undefined,
 			twitter: ch.twitter ?? undefined,
 			videoCount: ch.video_count ? Number.parseInt(ch.video_count, 10) : undefined,
@@ -63,14 +67,17 @@ class ChannelHandler {
 	}
 
 	/**
-	 * Gets a specific channel's basic information
-	 * @param channelID - ID of the Youtube Channel that is being queried
-	 */
+     * Gets a specific channel's basic information
+     * @param channelID - ID of the Youtube Channel that is being queried
+     */
 	async getInfo(channelID: string): Promise<Channel> {
 		const response = await this.axiosInstance.get(`/channels/${channelID}`)
 			.catch((error: AxiosError) => {
-				if (error.response?.status === 400) throw new Error((error.response.data as any).message);
-				else throw error;
+				if (error.response?.status === 400) {
+					throw new Error((error.response.data as any).message);
+				} else {
+					throw error;
+				}
 			});
 
 		return {

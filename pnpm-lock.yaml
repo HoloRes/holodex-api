@@ -10,6 +10,9 @@ dependencies:
     version: 1.4.0
 
 devDependencies:
+  '@tsconfig/node-lts':
+    specifier: ^18.12.3
+    version: 18.12.3
   '@types/chai':
     specifier: 4.3.5
     version: 4.3.5
@@ -265,6 +268,10 @@ packages:
     engines: {node: '>=14.16'}
     dependencies:
       defer-to-connect: 2.0.1
+    dev: true
+
+  /@tsconfig/node-lts@18.12.3:
+    resolution: {integrity: sha512-a8FraAjwaGKERCO5PowJeeCE/0Kv1whqegfNwJRIPG08Z5QDr6Kl1CgRrdIjGQtUCpSm+/BDCGeRKfAF1mg+ZQ==}
     dev: true
 
   /@tsconfig/node10@1.0.9:

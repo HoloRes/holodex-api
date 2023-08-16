@@ -53,7 +53,7 @@ class ChannelHandler {
                     type: ch.type,
                     photo: (_b = ch.photo) !== null && _b !== void 0 ? _b : undefined,
                     org: (_c = ch.org) !== null && _c !== void 0 ? _c : undefined,
-                    subOrg: (_d = ch.suborg) !== null && _d !== void 0 ? _d : undefined,
+                    subOrg: (_d = ch.group) !== null && _d !== void 0 ? _d : undefined,
                     banner: (_e = ch.banner) !== null && _e !== void 0 ? _e : undefined,
                     twitter: (_f = ch.twitter) !== null && _f !== void 0 ? _f : undefined,
                     videoCount: ch.video_count ? Number.parseInt(ch.video_count, 10) : undefined,

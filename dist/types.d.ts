@@ -40,6 +40,10 @@ export interface APIChannel extends APIChannelMin {
     inactive: boolean;
     description: string;
 }
+export interface APIChannelListChannel extends APIChannel {
+    group?: string;
+    suborg: never;
+}
 /**
  * Model corresponding to https://holodex.stoplight.io/docs/holodex/holodex_v2.yaml/components/schemas/Video
  */
