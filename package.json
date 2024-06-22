@@ -33,7 +33,7 @@
 		"mocha": "10.4.0",
 		"np": "8.0.4",
 		"ts-node": "10.9.2",
-		"typedoc": "0.25.13",
+		"typedoc": "0.26.0",
 		"typescript": "5.5.2"
 	},
 	"keywords": [
