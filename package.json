@@ -34,7 +34,7 @@
 		"np": "8.0.4",
 		"ts-node": "10.9.2",
 		"typedoc": "0.26.5",
-		"typescript": "5.5.3"
+		"typescript": "5.5.4"
 	},
 	"keywords": [
 		"hololive",
