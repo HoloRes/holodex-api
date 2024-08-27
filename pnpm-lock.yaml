@@ -14,8 +14,8 @@ devDependencies:
     specifier: ^18.12.3
     version: 18.12.5
   '@types/chai':
-    specifier: 4.3.18
-    version: 4.3.18
+    specifier: 4.3.19
+    version: 4.3.19
   '@types/chai-as-promised':
     specifier: 7.1.8
     version: 7.1.8
@@ -306,11 +306,11 @@ packages:
   /@types/chai-as-promised@7.1.8:
     resolution: {integrity: sha512-ThlRVIJhr69FLlh6IctTXFkmhtP3NpMZ2QGq69StYLyKZFp/HOp1VdKZj7RvfNWYYcJ1xlbLGLLWj1UvP5u/Gw==}
     dependencies:
-      '@types/chai': 4.3.18
+      '@types/chai': 4.3.19
     dev: true
 
-  /@types/chai@4.3.18:
-    resolution: {integrity: sha512-2UfJzigyNa8kYTKn7o4hNMPphkxtu4WTJyobK3m4FBpyj7EK5xgtPcOtxLm7Dznk/Qxr0QXn+gQbkg7mCZKdfg==}
+  /@types/chai@4.3.19:
+    resolution: {integrity: sha512-2hHHvQBVE2FiSK4eN0Br6snX9MtolHaTo/batnLjlGRhoQzlCL61iVpxoqO7SfFyOw+P/pwv+0zNHzKoGWz9Cw==}
     dev: true
 
   /@types/http-cache-semantics@4.0.1:
