@@ -31,7 +31,7 @@
 		"eslint-config-airbnb-typescript": "17.1.0",
 		"eslint-plugin-import": "2.31.0",
 		"mocha": "10.7.3",
-		"np": "8.0.4",
+		"np": "10.0.7",
 		"ts-node": "10.9.2",
 		"typedoc": "0.26.8",
 		"typescript": "5.6.3"
