@@ -50,8 +50,8 @@ devDependencies:
     specifier: 2.31.0
     version: 2.31.0(@typescript-eslint/parser@5.62.0)(eslint@8.57.1)
   mocha:
-    specifier: 10.7.3
-    version: 10.7.3
+    specifier: 10.8.0
+    version: 10.8.0
   np:
     specifier: 8.0.4
     version: 8.0.4
@@ -3315,8 +3315,8 @@ packages:
     resolution: {integrity: sha512-2yyAR8qBkN3YuheJanUpWC5U3bb5osDywNB8RzDVlDwDHbocAJveqqj1u8+SVD7jkWT4yvsHCpWqqWqAxb0zCA==}
     dev: true
 
-  /mocha@10.7.3:
-    resolution: {integrity: sha512-uQWxAu44wwiACGqjbPYmjo7Lg8sFrS3dQe7PP2FQI+woptP4vZXSMcfMyFL/e1yFEeEpV4RtyTpZROOKmxis+A==}
+  /mocha@10.8.0:
+    resolution: {integrity: sha512-2Rh6KiLO56bXjfW77YQWNJGo76U3eMiqHshJHdm8Q89moNFBy6426qwRxCEKEFGSsUWhMOASVFq+DUSTwewyew==}
     engines: {node: '>= 14.0.0'}
     hasBin: true
     dependencies:
