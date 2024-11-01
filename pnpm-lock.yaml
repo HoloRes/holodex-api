@@ -11,8 +11,8 @@ dependencies:
 
 devDependencies:
   '@tsconfig/node-lts':
-    specifier: ^18.12.3
-    version: 18.12.5
+    specifier: ^22.0.0
+    version: 22.0.0
   '@types/chai':
     specifier: 4.3.20
     version: 4.3.20
@@ -287,8 +287,8 @@ packages:
       defer-to-connect: 2.0.1
     dev: true
 
-  /@tsconfig/node-lts@18.12.5:
-    resolution: {integrity: sha512-KJZX0kQ5FBv77WDVzmQ9y1dUjaJCNXAAz3LSsg5cMwH0AUijVdDQtII+IVprEXdb13U9GjVOBxBzyRvr/ozPxw==}
+  /@tsconfig/node-lts@22.0.0:
+    resolution: {integrity: sha512-6y6CBFe0etz2xU1s0rGOj7pLsvbYXM9l/RNmBQOKI3S5DFrp1jigxx8uYupG5O6cCNXNlOE/1gquoQH01+kz5w==}
     dev: true
 
   /@tsconfig/node10@1.0.9:
