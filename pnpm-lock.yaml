@@ -7,7 +7,7 @@ settings:
 dependencies:
   axios:
     specifier: ^1.4.0
-    version: 1.18.1
+    version: 1.20.0
 
 devDependencies:
   '@tsconfig/node-lts':
@@ -845,8 +845,8 @@ packages:
       possible-typed-array-names: 1.0.0
     dev: true
 
-  /axios@1.18.1:
-    resolution: {integrity: sha512-3nTvFlvpn9Zu/RkHUqtc7/+al4UpRW5az71ap5zccp6e8RAYEzhMTecX8Dz1wWDYrPpUoB1HAQEGEAEvUr7S9g==}
+  /axios@1.20.0:
+    resolution: {integrity: sha512-r8aOh8j9cGKpgQAqpzrUHnSIc6a59Y3Xf/cv8sy1DrHCkZHzQGEuoq1tARk6qSyDdtQGSDgpb9kFlruzPvrgwg==}
     dependencies:
       follow-redirects: 1.16.0
       form-data: 4.0.6
